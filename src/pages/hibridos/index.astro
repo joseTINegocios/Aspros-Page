@@ -1,0 +1,192 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro'
+import { hybrids } from '../../data/hybrids'
+import { zones, getZoneIdsByHybridId } from '../../data/zones'
+import HybridQuickView from '../../components/hibridos/HybridQuickView.vue'
+
+const zonesWithSubzonas = zones.filter(z => z.subzonas && z.subzonas.length > 0)
+---
+
+<BaseLayout
+  title="Híbridos"
+  breadcrumbs={[{ label: 'Híbridos' }]}
+>
+  <section class="section-padding pb-0">
+    <div class="container">
+      <h1 class="section-title">HÍBRIDOS</h1>
+      <p class="lead text-center mb-0" id="filterDescription">Conoce nuestra línea completa de híbridos de maíz de alta calidad.</p>
+    </div>
+  </section>
+
+  <section class="section-padding pb-0">
+    <div class="container">
+      <div class="d-flex flex-wrap gap-2 justify-content-center mb-4" id="filterButtons">
+        <button type="button" class="btn btn-sm fw-semibold rounded-pill px-3 btn-dark" data-zona="all">Todas las regiones</button>
+        {zones.map(z => (
+          <button type="button" class="btn btn-sm fw-semibold rounded-pill px-3 btn-outline-secondary" data-zona={z.id} data-has-subzonas={z.subzonas && z.subzonas.length > 0 ? 'true' : 'false'}>{z.nombre}</button>
+        ))}
+      </div>
+
+      {zonesWithSubzonas.map(z => (
+        <div id={`subzonas-${z.id}`} class="d-flex flex-wrap gap-2 justify-content-center mb-4 d-none" data-parent-zone={z.id}>
+          <button type="button" class="btn btn-sm fw-semibold rounded-pill px-3 btn-dark" data-subzona="all">Toda {z.nombre}</button>
+          {(z.subzonas || []).map(sz => (
+            <button type="button" class="btn btn-sm fw-semibold rounded-pill px-3 btn-outline-secondary" data-subzona={sz.id}>{sz.nombre}</button>
+          ))}
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <section class="section-padding">
+    <div class="container">
+      <div id="emptyMessage" class="text-center text-muted py-5 d-none">No se encontraron híbridos para esta región.</div>
+      <div class="row g-4" id="hybridGrid">
+        {hybrids.map(h => {
+          const zonasHybrid = getZoneIdsByHybridId(h.id)
+          const primaryZone = zones.find(z => z.id === (zonasHybrid[0] || ''))
+          return (
+            <div class="col-lg-4 col-md-6 hybrid-item" data-zonas={zonasHybrid.join(' ')}>
+              <div class="card hybrid-card h-100 border-0 shadow-sm">
+                <div
+                  class="card-img-top hybrid-card-image"
+                  style={`background-image: url('${h.imagenes.hero}'); height: 220px;`}
+                >
+                  {h.destacado && <span class="hybrid-card-badge">Destacado</span>}
+                  <div class="hybrid-card-tech">{h.tecnologia}</div>
+                </div>
+                <div class="card-body">
+                  <h3 class="hybrid-card-title h5">{h.nombre}</h3>
+                  <p class="hybrid-card-desc text-muted small">{h.descripcionCorta}</p>
+                  <div class="hybrid-card-meta small text-muted">
+                    <span class="me-3"><i class="far fa-calendar-alt me-1"></i>{h.ciclo}</span>
+                    <span><i class="fas fa-tachometer-alt me-1"></i>{h.potencialRendimiento}</span>
+                    {h.dobleProposito && <span class="ms-2 badge bg-gold text-dark">Doble propósito</span>}
+                  </div>
+                  {primaryZone && (
+                    <span class="badge text-bg-light mt-2" style={`color: ${primaryZone.color}`}>
+                      <i class="fas fa-map-marker-alt me-1"></i>{primaryZone.nombre}
+                    </span>
+                  )}
+                </div>
+                <div class="card-footer bg-transparent border-0 pt-0 pb-3 px-3">
+                  <div class="d-flex gap-2">
+                    <button
+                      type="button"
+                      class="btn btn-outline-success flex-grow-1"
+                      data-bs-toggle="modal"
+                      data-bs-target="#hybridQuickViewModal"
+                      data-id={h.id}
+                      data-nombre={h.nombre}
+                      data-slug={h.slug}
+                      data-ciclo={h.ciclo}
+                      data-dias={h.diasCosecha}
+                      data-rendimiento={h.potencialRendimiento}
+                      data-tecnologia={h.tecnologia}
+                      data-descripcion={h.descripcionLarga}
+                      data-dobleproposito={h.dobleProposito ? 'true' : 'false'}
+                      data-resistencias={h.resistencias.join(',')}
+                      data-planta={h.imagenes.planta || `/images/fichas/samurai/planta.jpg`}
+                      data-mazorca={h.imagenes.mazorca || `/images/fichas/samurai/mazorca.jpg`}
+                      data-grano={h.imagenes.grano || `/images/fichas/samurai/grano.jpg`}
+                      data-general={h.imagenes.general || `/images/fichas/samurai/general.png`}
+                      data-logo={`/images/logos-hybrids/${h.id}-logo.svg`}
+                    >
+                      <i class="fas fa-eye me-1"></i>Ver más
+                    </button>
+                    <a href={`/hibridos/${h.slug}`} class="btn btn-gold">
+                      <i class="fas fa-file-alt"></i>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          )
+        })}
+      </div>
+    </div>
+  </section>
+
+  <HybridQuickView client:load />
+</BaseLayout>
+
+<script>
+  const params = new URLSearchParams(location.search)
+  const activeZona = params.get('zona') || 'all'
+  const activeSubzona = params.get('subzona')
+
+  const buttons = document.querySelectorAll('#filterButtons [data-zona]')
+  const subzonaRows = document.querySelectorAll('[id^="subzonas-"]')
+  const subzonaButtons = document.querySelectorAll('[data-subzona]')
+  const items = document.querySelectorAll('.hybrid-item')
+  const emptyMsg = document.getElementById('emptyMessage')
+  const desc = document.getElementById('filterDescription')
+  const zoneNames: Record<string, string> = { all: 'Todas las regiones' }
+
+  const subzonaMap: Record<string, Element> = {}
+  subzonaRows.forEach(row => {
+    const zoneId = row.dataset.parentZone
+    if (zoneId) subzonaMap[zoneId] = row
+  })
+
+  buttons.forEach(b => {
+    const zona = b.dataset.zona
+    if (zona) {
+      zoneNames[zona] = b.textContent.trim()
+      b.addEventListener('click', () => {
+        history.replaceState(null, '', zona === 'all' ? '/hibridos' : `?zona=${zona}`)
+        filter(zona, 'all')
+      })
+    }
+  })
+
+  subzonaButtons.forEach(b => {
+    b.addEventListener('click', () => {
+      const subzonaId = b.dataset.subzona
+      const parentRow = b.closest('[id^="subzonas-"]')
+      const zonaId = parentRow ? (parentRow as HTMLElement).dataset.parentZone : 'all'
+      const url = zonaId === 'all' ? '/hibridos' : subzonaId === 'all' ? `?zona=${zonaId}` : `?zona=${zonaId}&subzona=${subzonaId}`
+      history.replaceState(null, '', url)
+      filter(zonaId, subzonaId)
+    })
+  })
+
+  function filter(zonaId: string, subzonaId: string) {
+    buttons.forEach(b => {
+      b.classList.toggle('btn-dark', b.dataset.zona === zonaId)
+      b.classList.toggle('btn-outline-secondary', b.dataset.zona !== zonaId)
+    })
+
+    subzonaRows.forEach(row => {
+      const isActive = (row as HTMLElement).dataset.parentZone === zonaId
+      row.classList.toggle('d-none', !isActive)
+      if (isActive) {
+        row.querySelectorAll('[data-subzona]').forEach(sb => {
+          sb.classList.toggle('btn-dark', (sb as HTMLElement).dataset.subzona === subzonaId)
+          sb.classList.toggle('btn-outline-secondary', (sb as HTMLElement).dataset.subzona !== subzonaId)
+        })
+      }
+    })
+
+    let visible = 0
+    items.forEach(el => {
+      const zonas = (el as HTMLElement).dataset.zonas || ''
+      const match = zonaId === 'all' || zonas.split(' ').indexOf(zonaId) !== -1
+      el.style.display = match ? '' : 'none'
+      if (match) visible++
+    })
+
+    emptyMsg.classList.toggle('d-none', visible > 0)
+
+    if (zonaId === 'all') {
+      desc.textContent = 'Conoce nuestra línea completa de híbridos de maíz de alta calidad.'
+    } else if (subzonaId && subzonaId !== 'all') {
+      const subzonaLabel = (subzonaMap[zonaId] as HTMLElement)?.querySelector(`[data-subzona="${subzonaId}"]`)?.textContent || subzonaId
+      desc.textContent = `Híbridos recomendados para ${subzonaLabel} en la región ${zoneNames[zonaId]}.`
+    } else {
+      desc.textContent = `Híbridos recomendados para la región ${zoneNames[zonaId]}.`
+    }
+  }
+
+  filter(activeZona, activeSubzona || 'all')
+</script>

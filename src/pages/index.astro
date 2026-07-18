@@ -1,0 +1,206 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro'
+import { siteConfig } from '../data/config'
+import { getFeaturedHybrids } from '../data/hybrids'
+import { zones } from '../data/zones'
+import { testimonials } from '../data/testimonials'
+import HeroSlider from '../components/home/HeroSlider.vue'
+import Testimonials from '../components/home/Testimonials.vue'
+import ContactForm from '../components/contact/ContactForm.vue'
+import { getZonesByHybridId } from '../data/zones'
+
+const featured = getFeaturedHybrids().slice(0, 4)
+const techs = [
+  { icon: 'AO', title: 'Agro Optimus', desc: 'Densidad optimizada de 60 mil plantas/ha para maximizar el potencial genético de cada híbrido.', color: '#C9D300' },
+  { icon: 'DH', title: 'Doble Haploides', desc: 'Tecnología que acelera el desarrollo de líneas puras garantizando pureza genética y uniformidad.', color: '#FFEC00' },
+  { icon: 'MM', title: 'Marcadores Moleculares', desc: 'Identificación precisa de patrones heteróticos para acelerar la selección de características deseables.', color: '#4ade80' },
+]
+const steps = [
+  { num: 1, title: 'Selección', desc: 'Identificamos las mejores líneas parentales con características deseables.' },
+  { num: 2, title: 'Mejoramiento', desc: 'Aplicamos tecnologías avanzadas para acelerar el desarrollo de nuevos híbridos.' },
+  { num: 3, title: 'Validación', desc: 'Evaluamos rendimiento y adaptabilidad en múltiples regiones de México.' },
+  { num: 4, title: 'Producción', desc: 'Escalamos los mejores híbridos para llevar la mejor genética al productor.' },
+]
+---
+
+<BaseLayout title="Inicio" navbarDark={true}>
+  <!-- Hero -->
+  <HeroSlider slides={siteConfig.heroSlides} client:load />
+
+  <!-- Sello + CTA bar -->
+  <div class="section-dark py-3">
+    <div class="container">
+      <div class="row align-items-center g-2">
+        <div class="col-md-auto text-center text-md-start">
+          <span class="badge bg-gold text-dark fs-6 px-3 py-2 fw-bold">
+            <i class="fas fa-award me-1"></i> 40 AÑOS
+          </span>
+        </div>
+        <div class="col text-center text-md-end">
+          <a href="/hibridos" class="btn btn-gold btn-sm me-2">Conoce nuestros híbridos</a>
+          <a href="/hibridos" class="btn btn-outline-gold btn-sm me-2">Encuentra tu zona</a>
+          <a href="/hablemos" class="btn btn-outline-light btn-sm">Contáctanos</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Stats -->
+  <section class="section-dark stats-section text-center">
+    <div class="container">
+      <div class="row g-3 justify-content-center">
+        <div class="col-4 col-md-3">
+          <div class="stat-number">{siteConfig.stats.anos}+</div>
+          <div class="stat-label">Años</div>
+        </div>
+        <div class="col-4 col-md-3">
+          <div class="stat-number">{siteConfig.stats.hibridos}</div>
+          <div class="stat-label">Híbridos</div>
+        </div>
+        <div class="col-4 col-md-3">
+          <div class="stat-number">{siteConfig.stats.zonas}</div>
+          <div class="stat-label">Zonas</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Tecnología -->
+  <section class="section-tech section-padding" data-aos="fade-up">
+    <div class="container">
+      <div class="row align-items-center g-5">
+        <div class="col-lg-7">
+          <h2 class="section-title text-start mb-3">TECNOLOGÍA</h2>
+          <p class="text-white mb-4">En Aspros utilizamos tecnología de punta para desarrollar híbridos de maíz de la más alta calidad.</p>
+          <div class="row g-3">
+            {techs.map(t => (
+              <div class="col-md-6">
+                <div class="tech-card h-100">
+                  <div class="tech-icon" style="background: {t.color}22; color: {t.color}; border: 1px solid {t.color}44;">{t.icon}</div>
+                  <h3>{t.title}</h3>
+                  <p>{t.desc}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+        <div class="col-lg-5 text-center">
+          <div class="corn-cob-3d">
+            <div class="cob-body"></div>
+            <div class="cob-body"></div>
+            <div class="cob-body"></div>
+            <div class="cob-body"></div>
+            <div class="cob-body"></div>
+            <div class="cob-top"></div>
+            <div class="cob-bottom"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Proceso -->
+  <section class="section-padding" data-aos="fade-up">
+    <div class="container">
+      <h2 class="section-title">PROCESO</h2>
+      <p class="text-center text-muted mb-4">Del laboratorio al campo.</p>
+      <div class="row g-3 justify-content-center">
+        {steps.map(s => (
+          <div class="col-6 col-md-3">
+            <div class="process-step">
+              <div class="step-number">{s.num}</div>
+              <h4>{s.title}</h4>
+              <p>{s.desc}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Híbridos -->
+  <section class="section-padding section-cream" id="hibridos" data-aos="fade-up">
+    <div class="container">
+      <h2 class="section-title">DESTACADOS</h2>
+      <div class="row g-3">
+        {featured.map(h => {
+          const hybridZonas = getZonesByHybridId(h.id)
+          const zona = hybridZonas[0]
+          return (
+            <div class="col-6 col-lg-3">
+              <a href={`/hibridos/${h.slug}`} class="text-decoration-none">
+                <div class="card hybrid-card h-100 border-0 shadow-sm">
+                  <div class="card-img-top hybrid-card-image" style={`background-image: url('${h.imagenes.hero}')`}>
+                    <div class="hybrid-card-tech">{h.tecnologia}</div>
+                  </div>
+                  <div class="card-body">
+                    <h3 class="hybrid-card-title">{h.nombre}</h3>
+                    <p class="hybrid-card-desc">{h.descripcionCorta}</p>
+                    {zona && <span class="badge text-bg-light" style={`color: ${zona.color}`}><i class="fas fa-map-marker-alt me-1"></i>{zona.nombre}</span>}
+                  </div>
+                </div>
+              </a>
+            </div>
+          )
+        })}
+      </div>
+      <div class="text-center mt-3">
+        <a href="/hibridos" class="btn btn-outline-dark rounded-pill px-4">Ver todos los híbridos →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Zonas -->
+  <section class="section-padding" id="regiones" data-aos="fade-up">
+    <div class="container">
+      <h2 class="section-title">REGIONES</h2>
+      <div class="row g-2 justify-content-center">
+        {zones.map(z => (
+          <div class="col-6 col-md-4 col-lg-2">
+            <a href={`/hibridos?zona=${z.id}`} class="text-decoration-none">
+              <div class="card border-0 shadow-sm text-center py-3 px-2 h-100">
+                <div class="small fw-bold" style={`color: ${z.color}`}>{z.nombre}</div>
+                <div class="small text-muted">{z.hybridIds.length} híbridos</div>
+              </div>
+            </a>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Quote + Testimonios -->
+  <section class="section-padding section-cream" data-aos="fade-up">
+    <div class="container">
+      <div class="row justify-content-center mb-4">
+        <div class="col-lg-8 text-center">
+          <p class="text-muted">Desde hace más de <strong>40 años</strong>, la razón de ser de ASPROS® ha sido el campo mexicano, los agricultores y el maíz.</p>
+          <blockquote class="border-0 fs-5 fw-light fst-italic text-green-dark">{siteConfig.frase}</blockquote>
+        </div>
+      </div>
+      <Testimonials testimonials={testimonials} client:visible />
+    </div>
+  </section>
+
+  <!-- Contacto -->
+  <section class="section-padding" id="contacto" data-aos="fade-up">
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-lg-8">
+          <h2 class="section-title">CONTACTO</h2>
+          <div class="row g-4 mb-4 text-center">
+            <div class="col-6">
+              <div class="small text-muted">Teléfono</div>
+              <a href={`tel:${siteConfig.telefono}`} class="text-decoration-none fw-semibold">{siteConfig.telefono}</a>
+            </div>
+            <div class="col-6">
+              <div class="small text-muted">Email</div>
+              <a href={`mailto:${siteConfig.email}`} class="text-decoration-none fw-semibold">{siteConfig.email}</a>
+            </div>
+          </div>
+          <ContactForm client:load />
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

@@ -1,0 +1,79 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro'
+import * as vacantesMod from '../data/vacantes'
+import * as siteMod from '../data/config'
+
+const vacantesActivas = vacantesMod.vacantes.filter(function(v) { return v.activa })
+const siteConfig = siteMod.siteConfig
+---
+
+<BaseLayout
+  title="Bolsa de Trabajo"
+  description="Unete al equipo de Aspros Semillas. Consulta nuestras vacantes y forma parte del campo mexicano."
+  breadcrumbs={[{ label: 'Bolsa de Trabajo' }]}
+>
+  <section class="section-padding pb-0">
+    <div class="container">
+      <h1 class="section-title">BOLSA DE TRABAJO</h1>
+      <p class="lead text-center mb-0">Unete al equipo que impulsa el campo mexicano.</p>
+    </div>
+  </section>
+
+  <section class="section-padding">
+    <div class="container">
+      {vacantesActivas.length === 0 ? (
+          <div class="text-center py-5">
+            <i class="fas fa-search fs-1 text-muted mb-3 d-block"></i>
+            <p class="text-muted">No tenemos vacantes disponibles en este momento. Siguenos en redes sociales para conocer nuevas oportunidades.</p>
+          </div>
+        ) : (
+          <div class="row g-4">
+            {vacantesActivas.map(function(v) { return (
+            <div class="col-lg-6" data-aos="fade-up">
+              <div class="card border-0 shadow-sm h-100">
+                <div class="card-body p-4">
+                  <div class="d-flex justify-content-between align-items-start mb-3">
+                    <div>
+                      <h2 class="h5 fw-bold mb-1">{v.titulo}</h2>
+                      <p class="small text-muted mb-0">
+                        <i class="fas fa-map-marker-alt me-1"></i>{v.ubicacion}
+                      </p>
+                    </div>
+                    <span class="badge bg-gold text-dark flex-shrink-0">{v.tipo}</span>
+                  </div>
+                  <span class="badge text-bg-light mb-3" style="color: #1f422c;">
+                    <i class="fas fa-briefcase me-1"></i>{v.area}
+                  </span>
+                  <p class="text-muted small">{v.descripcion}</p>
+                  <div class="mt-3">
+                    <strong class="small">Requisitos:</strong>
+                    <ul class="small text-muted mt-1 mb-0 ps-3">
+                      {v.requisitos.map(function(r) { return (
+                        <li>{r}</li>
+                      )})}
+                    </ul>
+                  </div>
+                </div>
+                <div class="card-footer bg-transparent border-0 pt-0 pb-3 px-4">
+                  <a href={'mailto:' + siteConfig.email + '?subject=Aplicacion: ' + v.titulo} class="btn btn-gold btn-sm">
+                    <i class="fas fa-paper-plane me-1"></i>Aplicar ahora
+                  </a>
+                </div>
+              </div>
+            </div>
+            )})}
+        </div>
+      )}
+    </div>
+  </section>
+
+  <section class="section-dark section-padding text-center">
+    <div class="container">
+      <h2 class="h3 fw-bold text-white">No encuentras lo que buscas?</h2>
+      <p class="text-white-50 mb-4">Envia tu curriculum a <a href={'mailto:' + siteConfig.email} style="color: #C9D300; text-decoration: none; font-weight: 600;">{siteConfig.email}</a> y te contactaremos cuando tengamos una vacante adecuada.</p>
+      <a href={'mailto:' + siteConfig.email + '?subject=Curriculum espontaneo'} class="btn btn-gold btn-lg">
+        <i class="fas fa-file-upload me-2"></i>Envia tu CV
+      </a>
+    </div>
+  </section>
+</BaseLayout>

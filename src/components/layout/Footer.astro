@@ -1,0 +1,66 @@
+---
+import { siteConfig } from '../../data/config'
+import { navItems } from '../../data/navigation'
+---
+
+<footer class="footer-aspros">
+  <div class="container">
+    <div class="row g-5">
+      <div class="col-lg-4">
+        <div class="footer-logo">
+          <img src={siteConfig.logoUrl} alt={siteConfig.nombre} />
+        </div>
+        <p class="mb-4">{siteConfig.frase}</p>
+        <div class="footer-social">
+          {siteConfig.redes.map(red => (
+            <a href={red.url} target="_blank" rel="noopener noreferrer" aria-label={red.nombre}>
+              <i class={`fab fa-${red.icono}`}></i>
+            </a>
+          ))}
+        </div>
+      </div>
+      <div class="col-lg-2 col-md-4">
+        <h5 class="footer-title">Navegación</h5>
+        <ul class="list-unstyled">
+          {navItems.map(item => (
+            <li class="mb-2">
+              <a href={item.href}>{item.label}</a>
+            </li>
+          ))}
+        </ul>
+      </div>
+      <div class="col-lg-3 col-md-4">
+        <h5 class="footer-title">Contacto</h5>
+        <ul class="list-unstyled">
+          <li class="mb-2">
+            <a href={`tel:${siteConfig.telefono}`}>
+              <i class="fas fa-phone-alt me-2"></i> {siteConfig.telefono}
+            </a>
+          </li>
+          <li class="mb-2">
+            <a href={`mailto:${siteConfig.email}`}>
+              <i class="fas fa-envelope me-2"></i> {siteConfig.email}
+            </a>
+          </li>
+          <li class="mb-2">
+            <i class="fas fa-map-marker-alt me-2"></i> {siteConfig.direccion}
+          </li>
+        </ul>
+      </div>
+      <div class="col-lg-3 col-md-4">
+        <h5 class="footer-title">Enlaces</h5>
+        <ul class="list-unstyled">
+          <li class="mb-2"><a href="/hibridos">Catálogo de Híbridos</a></li>
+          <li class="mb-2"><a href="/resultados">Resultados</a></li>
+          <li class="mb-2"><a href="/innovacion">Innovación</a></li>
+          <li class="mb-2"><a href="/historia">Nuestra Historia</a></li>
+          <li class="mb-2"><a href="/hablemos">Hablemos</a></li>
+          <li class="mb-2"><a href="/bolsa-de-trabajo">Bolsa de Trabajo</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom text-center">
+      <p class="mb-0">&copy; {new Date().getFullYear()} {siteConfig.nombre}. Todos los derechos reservados.</p>
+    </div>
+  </div>
+</footer>

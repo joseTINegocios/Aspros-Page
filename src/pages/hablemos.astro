@@ -1,0 +1,102 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro'
+import ContactForm from '../components/contact/ContactForm.vue'
+import { siteConfig } from '../data/config'
+---
+
+<BaseLayout
+  title="Hablemos"
+  description="Contáctanos. Estamos listos para ayudarte a encontrar el híbrido ideal para tu zona."
+  breadcrumbs={[{ label: 'Hablemos' }]}
+>
+  <section class="section-padding pb-0">
+    <div class="container">
+      <h1 class="section-title">HABLEMOS</h1>
+      <p class="lead text-center mb-0">Estamos listos para acompañarte en tu próxima cosecha.</p>
+    </div>
+  </section>
+
+  <section class="section-padding">
+    <div class="container">
+      <div class="row g-5">
+        <!-- Contact info -->
+        <div class="col-lg-4">
+          <div class="card border-0 shadow-sm">
+            <div class="card-body p-4">
+              <h2 class="h5 fw-bold mb-4">Información de contacto</h2>
+
+              <div class="d-flex mb-4">
+                <div class="flex-shrink-0 me-3">
+                  <div class="d-flex align-items-center justify-content-center rounded-circle" style="width: 44px; height: 44px; background: rgba(31, 66, 44, 0.1);">
+                    <i class="fab fa-whatsapp fs-5" style="color: #25D366;"></i>
+                  </div>
+                </div>
+                <div>
+                  <div class="small text-muted">WhatsApp</div>
+                  <a href={`https://wa.me/52${siteConfig.telefono}`} target="_blank" rel="noopener" class="fw-semibold text-decoration-none">{siteConfig.telefono}</a>
+                </div>
+              </div>
+
+              <div class="d-flex mb-4">
+                <div class="flex-shrink-0 me-3">
+                  <div class="d-flex align-items-center justify-content-center rounded-circle" style="width: 44px; height: 44px; background: rgba(31, 66, 44, 0.1);">
+                    <i class="fas fa-phone-alt fs-5" style="color: #1f422c;"></i>
+                  </div>
+                </div>
+                <div>
+                  <div class="small text-muted">Teléfono</div>
+                  <a href={`tel:${siteConfig.telefono}`} class="fw-semibold text-decoration-none">{siteConfig.telefono}</a>
+                </div>
+              </div>
+
+              <div class="d-flex mb-4">
+                <div class="flex-shrink-0 me-3">
+                  <div class="d-flex align-items-center justify-content-center rounded-circle" style="width: 44px; height: 44px; background: rgba(31, 66, 44, 0.1);">
+                    <i class="fas fa-envelope fs-5" style="color: #1f422c;"></i>
+                  </div>
+                </div>
+                <div>
+                  <div class="small text-muted">Email</div>
+                  <a href={`mailto:${siteConfig.email}`} class="fw-semibold text-decoration-none">{siteConfig.email}</a>
+                </div>
+              </div>
+
+              <div class="d-flex mb-4">
+                <div class="flex-shrink-0 me-3">
+                  <div class="d-flex align-items-center justify-content-center rounded-circle" style="width: 44px; height: 44px; background: rgba(31, 66, 44, 0.1);">
+                    <i class="fas fa-map-marker-alt fs-5" style="color: #1f422c;"></i>
+                  </div>
+                </div>
+                <div>
+                  <div class="small text-muted">Ubicación</div>
+                  <span class="fw-semibold">{siteConfig.direccion}</span>
+                </div>
+              </div>
+
+              <hr />
+
+              <h3 class="h6 fw-bold mb-3">Síguenos</h3>
+              <div class="d-flex gap-2">
+                {siteConfig.redes.map(red => (
+                  <a href={red.url} target="_blank" rel="noopener noreferrer" class="btn btn-outline-dark btn-sm rounded-circle" style="width: 40px; height: 40px; display: flex; align-items: center; justify-content: center;" aria-label={red.nombre}>
+                    <i class={`fab fa-${red.icono}`}></i>
+                  </a>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Form -->
+        <div class="col-lg-8">
+          <div class="card border-0 shadow-sm">
+            <div class="card-body p-4">
+              <h2 class="h5 fw-bold mb-4">Envíanos un mensaje</h2>
+              <ContactForm client:load />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

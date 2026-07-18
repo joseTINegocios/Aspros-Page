@@ -1,0 +1,153 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro'
+import { hybrids, getHybridBySlug, getRelatedHybrids } from '../../data/hybrids'
+import { getZonesByHybridId } from '../../data/zones'
+
+export function getStaticPaths() {
+  return hybrids.map(h => ({
+    params: { slug: h.slug },
+    props: { hybrid: h },
+  }))
+}
+
+const { hybrid } = Astro.props
+const hybridZonas = getZonesByHybridId(hybrid.id)
+const zone = hybridZonas[0]
+const relacionados = getRelatedHybrids(hybrid)
+---
+
+<BaseLayout
+  title={hybrid.metaTitle}
+  description={hybrid.metaDescription}
+  breadcrumbs={[
+    { label: 'Híbridos', href: '/hibridos' },
+    { label: hybrid.nombre },
+  ]}
+>
+  <!-- Hero -->
+  <section class="hybrid-detail-hero" style={`background-image: url('${hybrid.imagenes.hero}')`}>
+    <div class="container d-flex align-items-center min-vh-50" style="min-height: 50vh;">
+      <div class="text-white" style="text-shadow: 0 2px 8px rgba(0,0,0,0.5);">
+        <h1 class="display-4 fw-bold">{hybrid.nombre}</h1>
+        <p class="lead fs-5 mb-3">{hybrid.descripcionCorta}</p>
+        <div class="d-flex flex-wrap gap-3">
+          <span class="badge bg-gold text-dark fs-6 px-3 py-2">{hybrid.ciclo}</span>
+          <span class="badge bg-dark fs-6 px-3 py-2">{hybrid.potencialRendimiento}</span>
+          {hybrid.dobleProposito && <span class="badge bg-gold text-dark fs-6 px-3 py-2">Doble propósito</span>}
+          {zone && (
+            <span class="badge fs-6 px-3 py-2" style="background: {zone.color}; color: #fff;">
+              <i class="fas fa-map-marker-alt me-1"></i>{zone.nombre}
+            </span>
+          )}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Descripción -->
+  <section class="section-padding">
+    <div class="container">
+      <div class="row g-5">
+        <div class="col-lg-8">
+          <h2 class="h3 fw-bold mb-4">Descripción</h2>
+          <p class="lead">{hybrid.descripcionLarga}</p>
+
+          <h2 class="h3 fw-bold mt-5 mb-4">Características</h2>
+          <div class="row g-4">
+            <div class="col-md-4">
+              <div class="card border-0 bg-light shadow-sm h-100 p-3 text-center">
+                <img src="/images/icons/planta.svg" alt="Planta" class="mb-2 mx-auto" style="width: 48px; height: 48px;" />
+                <h3 class="h6 fw-bold">Planta</h3>
+                <ul class="list-unstyled small mb-0">
+                  {hybrid.caracteristicasPlanta.map(c => <li><i class="fas fa-check text-green-dark me-1"></i>{c}</li>)}
+                </ul>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="card border-0 bg-light shadow-sm h-100 p-3 text-center">
+                <img src="/images/icons/mazorca.svg" alt="Mazorca" class="mb-2 mx-auto" style="width: 48px; height: 48px;" />
+                <h3 class="h6 fw-bold">Mazorca</h3>
+                <ul class="list-unstyled small mb-0">
+                  {hybrid.caracteristicasMazorca.map(c => <li><i class="fas fa-check text-green-dark me-1"></i>{c}</li>)}
+                </ul>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="card border-0 bg-light shadow-sm h-100 p-3 text-center">
+                <img src="/images/icons/grano.svg" alt="Grano" class="mb-2 mx-auto" style="width: 48px; height: 48px;" />
+                <h3 class="h6 fw-bold">Grano</h3>
+                <ul class="list-unstyled small mb-0">
+                  {hybrid.caracteristicasGrano.map(c => <li><i class="fas fa-check text-green-dark me-1"></i>{c}</li>)}
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <h2 class="h3 fw-bold mt-5 mb-3">Recomendaciones de Siembra</h2>
+          <p>{hybrid.recomendacionesSiembra}</p>
+
+          <h2 class="h3 fw-bold mt-5 mb-3">Resistencias</h2>
+          <div class="d-flex flex-wrap gap-2">
+            {hybrid.resistencias.map(r => (
+              <span class="badge bg-success bg-opacity-10 text-success border border-success px-3 py-2">{r}</span>
+            ))}
+          </div>
+
+          <h2 class="h3 fw-bold mt-5 mb-3">Ficha Técnica</h2>
+          {hybrid.fichaTecnicaUrl ? (
+            <a href={hybrid.fichaTecnicaUrl} target="_blank" rel="noopener noreferrer" class="btn btn-gold">
+              <i class="fas fa-download me-2"></i>Descargar Ficha Técnica
+            </a>
+          ) : (
+            <p class="text-muted small">Próximamente disponible</p>
+          )}
+        </div>
+
+        <div class="col-lg-4">
+          <div class="card border-0 bg-light shadow-sm p-4 sticky-lg-top" style="top: 5rem;">
+            <h3 class="h5 fw-bold mb-3">Información General</h3>
+            <table class="table table-sm table-borderless mb-0">
+              <tbody>
+                <tr><td class="fw-semibold ps-0">Ciclo</td><td class="pe-0 text-end">{hybrid.ciclo}</td></tr>
+                <tr><td class="fw-semibold ps-0">Días a cosecha</td><td class="pe-0 text-end">{hybrid.diasCosecha}</td></tr>
+                <tr><td class="fw-semibold ps-0">Rendimiento</td><td class="pe-0 text-end">{hybrid.potencialRendimiento}</td></tr>
+                <tr><td class="fw-semibold ps-0">Tecnología</td><td class="pe-0 text-end">{hybrid.tecnologia}</td></tr>
+                <tr><td class="fw-semibold ps-0">Doble propósito</td><td class="pe-0 text-end">{hybrid.dobleProposito ? 'Sí' : 'No'}</td></tr>
+                {zone && <tr><td class="fw-semibold ps-0">Zona</td><td class="pe-0 text-end">{zone.nombre}</td></tr>}
+              </tbody>
+            </table>
+            <a href="#contacto" class="btn btn-gold mt-3 w-100">
+              <i class="fas fa-phone-alt me-2"></i>Solicitar cotización
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Relacionados -->
+  {relacionados.length > 0 && (
+    <section class="section-cream section-padding">
+      <div class="container">
+        <h2 class="section-title">HÍBRIDOS RELACIONADOS</h2>
+        <div class="row g-4 mt-2">
+          {relacionados.map(r => (
+            <div class="col-lg-3 col-md-6">
+              <a href={`/hibridos/${r.slug}`} class="text-decoration-none">
+                <div class="card hybrid-card h-100 border-0 shadow-sm">
+                  <div class="card-img-top hybrid-card-image" style={`background-image: url('${r.imagenes.hero}'); height: 180px;`}>
+                    {r.destacado && <span class="hybrid-card-badge">Destacado</span>}
+                  </div>
+                  <div class="card-body">
+                    <h3 class="hybrid-card-title h6">{r.nombre}</h3>
+                    <p class="hybrid-card-desc text-muted small">{r.descripcionCorta}</p>
+                  </div>
+                </div>
+              </a>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  )}
+</BaseLayout>

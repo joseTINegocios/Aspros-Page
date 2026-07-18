@@ -1,0 +1,272 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro'
+import * as zoneMod from '../data/zones'
+import * as hybridMod from '../data/hybrids'
+import * as testimonialMod from '../data/testimonials'
+import * as resultMod from '../data/resultados'
+
+const zones = zoneMod.zones
+const hybrids = hybridMod.hybrids
+const testimonials = testimonialMod.testimonials
+const videoPrincipal = resultMod.videoPrincipal
+const videosProductores = resultMod.videosProductores
+const videosAgrotips = resultMod.videosAgrotips
+const categorias = resultMod.getCategoriasAgrotips()
+const getZonasConTestimonios = resultMod.getZonasConTestimonios
+
+const zonasConTest = getZonasConTestimonios()
+const VIDEOS_POR_PAGINA = 12
+
+function getHybridZoneId(hybridName) {
+  const h = hybrids.find(function(x) { return x.nombre.toLowerCase() === hybridName.toLowerCase() })
+  if (!h) return ''
+  var ids = zoneMod.getZoneIdsByHybridId(h.id)
+  return ids[0] || ''
+}
+---
+
+<BaseLayout
+  title="Resultados"
+  description="Resultados comprobados de nuestros hibridos en campo. Testimonios de productores de todo Mexico."
+  breadcrumbs={[{ label: 'Resultados' }]}
+>
+  <section class="section-padding pb-0">
+    <div class="container">
+      <h1 class="section-title">RESULTADOS</h1>
+      <p class="lead text-center mb-0">Resultados comprobados por productores de todo Mexico.</p>
+    </div>
+  </section>
+
+  <!-- Video principal -->
+  <section class="section-padding pb-0" data-aos="fade-up">
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-lg-10">
+          <div class="ratio ratio-16x9 rounded-4 overflow-hidden shadow">
+            <iframe src={videoPrincipal.url} title={videoPrincipal.titulo} allowfullscreen loading="lazy"></iframe>
+          </div>
+          <div class="text-center mt-3">
+            <h2 class="h4 fw-bold">{videoPrincipal.titulo}</h2>
+            <p class="text-muted">{videoPrincipal.descripcion}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonios -->
+  <section class="section-padding section-cream" data-aos="fade-up">
+    <div class="container">
+      <h2 class="section-title">TESTIMONIOS</h2>
+      <div class="d-flex flex-wrap gap-2 justify-content-center mb-4" id="testFilterButtons">
+        <button type="button" class="btn btn-sm fw-semibold rounded-pill px-3 btn-dark" data-zona="todas">Todos</button>
+        {zonasConTest.map(function(z) {
+          var zone = zones.find(function(zz) { return zz.id === z.id })
+          return (
+            <button type="button" class="btn btn-sm fw-semibold rounded-pill px-3 btn-outline-secondary" data-zona={z.id}>
+              {(zone ? zone.nombre : z.nombre)} ({z.count})
+            </button>
+          )
+        })}
+      </div>
+      <div id="testEmptyMessage" class="d-none text-center text-muted py-4">No hay testimonios para esta zona.</div>
+      <div class="row g-4" id="testimonialsGrid">
+        {testimonials.map(function(t) {
+          var zonaId = getHybridZoneId(t.hybrid || '')
+          return (
+            <div class="col-md-6 col-lg-4 testimonial-item" data-zona={zonaId}>
+              <div class="card border-0 shadow-sm h-100 overflow-hidden">
+                <div style="aspect-ratio: 1/1; max-height: 260px; overflow: hidden;">
+                  <img src={t.imagen} alt={t.nombre} class="w-100 h-100" style="object-fit: cover; object-position: top center;" loading="lazy" />
+                </div>
+                <div class="card-body">
+                  <p class="card-text fst-italic text-muted small mb-2">{"\u201C" + t.texto + "\u201D"}</p>
+                  <div class="d-flex justify-content-between align-items-center">
+                    <strong class="small">{t.nombre}</strong>
+                    {t.hybrid && <span class="badge" style="background: #1f422c;">{t.hybrid}</span>}
+                  </div>
+                </div>
+              </div>
+            </div>
+          )
+        })}
+      </div>
+    </div>
+  </section>
+
+
+  <!-- Videos de productores -->
+  <section class="section-padding" data-aos="fade-up">
+    <div class="container">
+      <h2 class="section-title">VIDEOS DE PRODUCTORES</h2>
+      <p class="text-center text-muted mb-4">Escucha la experiencia de productores que confian en ASPROS.</p>
+      <div class="row g-4">
+        {videosProductores.map(function(v) {
+          var zone = zones.find(function(z) { return z.id === v.zona })
+          var zonaNombre = zone ? zone.nombre : v.zona
+          return (
+            <div class="col-md-6 col-lg-4">
+              <div class="card border-0 shadow-sm h-100">
+                <div class="ratio ratio-16x9">
+                  <iframe src={v.url} title={v.titulo} allowfullscreen loading="lazy"></iframe>
+                </div>
+                <div class="card-body">
+                  <h3 class="h6 fw-bold mb-1">{v.titulo}</h3>
+                  <p class="small text-muted mb-0">
+                    <i class="fas fa-user me-1"></i>{v.productor}
+                    <span class="ms-2 badge" style="background: #C9D300; color: #1f422c;">{zonaNombre}</span>
+                  </p>
+                </div>
+              </div>
+            </div>
+          )
+        })}
+      </div>
+    </div>
+  </section>
+
+  <!-- Agrotips - todos los videos -->
+  <section class="section-padding section-cream" data-aos="fade-up">
+    <div class="container">
+      <h2 class="section-title">AGROTIPS</h2>
+      <p class="text-center text-muted mb-4">Todos los videos educativos de ASPROS para el productor.</p>
+
+      <div class="d-flex flex-wrap gap-2 justify-content-center mb-4" id="agrotipFilterButtons">
+        <button type="button" class="btn btn-sm fw-semibold rounded-pill px-3 btn-dark" data-cat="todas">Todas</button>
+        {categorias.map(function(c) {
+          return (
+            <button type="button" class="btn btn-sm fw-semibold rounded-pill px-3 btn-outline-secondary" data-cat={c}>{c}</button>
+          )
+        })}
+      </div>
+
+      <div id="agrotipEmptyMessage" class="d-none text-center text-muted py-4">No hay videos en esta categoría.</div>
+
+      <div class="row g-4" id="agrotipGrid">
+        {videosAgrotips.map(function(v) {
+          return (
+            <div class="col-md-6 col-lg-4 agrotip-item" data-cat={(v.categoria || '')} style="display: none;">
+              <div class="card border-0 shadow-sm h-100">
+                <div class="ratio ratio-16x9">
+                  <iframe src={v.url} title={v.titulo} allowfullscreen loading="lazy"></iframe>
+                </div>
+                <div class="card-body">
+                  <h3 class="h6 fw-bold mb-1">{v.titulo}</h3>
+                  {v.categoria && <span class="badge" style="background: #1f422c;">{v.categoria}</span>}
+                </div>
+              </div>
+            </div>
+          )
+        })}
+      </div>
+
+      <div class="text-center mt-4">
+        <button id="loadMoreBtn" class="btn btn-outline-success rounded-pill px-4">
+          Cargar más videos <i class="fas fa-chevron-down ms-1"></i>
+        </button>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<script>
+  var VIDEOS_POR_PAGINA = 12
+
+  function initTestimonials() {
+    var buttons = document.querySelectorAll('#testFilterButtons [data-zona]')
+    var items = document.querySelectorAll('.testimonial-item')
+    var emptyMsg = document.getElementById('testEmptyMessage')
+
+    function filter(zonaId) {
+      for (var i = 0; i < buttons.length; i++) {
+        var b = buttons[i]
+        b.classList.toggle('btn-dark', b.dataset.zona === zonaId)
+        b.classList.toggle('btn-outline-secondary', b.dataset.zona !== zonaId)
+      }
+      var visible = 0
+      for (var j = 0; j < items.length; j++) {
+        var el = items[j]
+        var match = zonaId === 'todas' || el.dataset.zona === zonaId
+        el.style.display = match ? '' : 'none'
+        if (match) visible++
+      }
+      emptyMsg.classList.toggle('d-none', visible > 0)
+    }
+
+    for (var k = 0; k < buttons.length; k++) {
+      (function(btn) {
+        btn.addEventListener('click', function() { filter(btn.dataset.zona) })
+      })(buttons[k])
+    }
+
+    filter('todas')
+  }
+
+  function initAgrotips() {
+    var allItems = document.querySelectorAll('.agrotip-item')
+    var loadMoreBtn = document.getElementById('loadMoreBtn')
+    var filterButtons = document.querySelectorAll('#agrotipFilterButtons [data-cat]')
+    var emptyMsg = document.getElementById('agrotipEmptyMessage')
+    var activeCat = 'todas'
+    var visibleCount = 0
+
+    function getFiltered() {
+      var arr = []
+      for (var i = 0; i < allItems.length; i++) {
+        var el = allItems[i]
+        if (activeCat === 'todas' || el.dataset.cat === activeCat) {
+          arr.push(el)
+        }
+      }
+      return arr
+    }
+
+    function showMore(count) {
+      var filtered = getFiltered()
+      var shown = 0
+      for (var i = 0; i < filtered.length; i++) {
+        if (filtered[i].style.display !== 'none') shown++
+      }
+      var toShow = shown + count
+      if (toShow > filtered.length) toShow = filtered.length
+      for (var j = shown; j < toShow; j++) {
+        filtered[j].style.display = ''
+      }
+      visibleCount = toShow
+      emptyMsg.classList.toggle('d-none', filtered.length > 0)
+      var hasMore = visibleCount < filtered.length
+      loadMoreBtn.style.display = hasMore ? '' : 'none'
+    }
+
+    function filter(catId) {
+      activeCat = catId
+      for (var i = 0; i < filterButtons.length; i++) {
+        var b = filterButtons[i]
+        b.classList.toggle('btn-dark', b.dataset.cat === catId)
+        b.classList.toggle('btn-outline-secondary', b.dataset.cat !== catId)
+      }
+      for (var j = 0; j < allItems.length; j++) {
+        allItems[j].style.display = 'none'
+      }
+      visibleCount = 0
+      showMore(VIDEOS_POR_PAGINA)
+    }
+
+    for (var k = 0; k < filterButtons.length; k++) {
+      (function(btn) {
+        btn.addEventListener('click', function() { filter(btn.dataset.cat) })
+      })(filterButtons[k])
+    }
+
+    loadMoreBtn.addEventListener('click', function() {
+      showMore(VIDEOS_POR_PAGINA)
+    })
+
+    filter('todas')
+  }
+
+  document.addEventListener('DOMContentLoaded', function() {
+    initTestimonials()
+    initAgrotips()
+  })
+</script>

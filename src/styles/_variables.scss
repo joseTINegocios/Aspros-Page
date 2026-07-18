@@ -1,0 +1,73 @@
+// === Color System ===
+$green-dark: #1f422c;
+$green-light: #2a5a3a;
+$green-hover: #357a4e;
+$accent-gold: #C9D300;
+$accent-bright: #FFEC00;
+$white: #ffffff;
+$dark: #1a1a1a;
+$cream: #f5f2ed;
+$gray-100: #f8f9fa;
+$gray-200: #e9ecef;
+$gray-300: #dee2e6;
+$gray-400: #ced4da;
+$gray-500: #adb5bd;
+$gray-600: #6c757d;
+$gray-700: #495057;
+$gray-800: #343a40;
+
+// === Typography ===
+$font-family-sans-serif: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+$font-family-monospace: 'JetBrains Mono', 'Fira Code', monospace;
+
+// === Bootstrap Overrides ===
+$primary: $green-dark;
+$secondary: $green-light;
+$success: $accent-gold;
+$warning: $accent-bright;
+$light: $cream;
+$dark: $dark;
+
+$body-color: $gray-800;
+$body-bg: $white;
+$headings-color: $green-dark;
+
+$border-radius: 6px;
+$border-radius-sm: 4px;
+$border-radius-lg: 12px;
+
+$navbar-dark-color: $white;
+$navbar-light-color: $green-dark;
+
+$btn-border-radius: 6px;
+$btn-border-radius-lg: 8px;
+$btn-border-radius-sm: 4px;
+
+$card-border-radius: 12px;
+$card-border-color: $gray-200;
+$card-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+
+// === Spacing ===
+$spacer: 8px;
+$spacers: (
+  0: 0,
+  1: $spacer,
+  2: $spacer * 2,
+  3: $spacer * 3,
+  4: $spacer * 4,
+  5: $spacer * 5,
+  6: $spacer * 6,
+  7: $spacer * 7,
+  8: $spacer * 8,
+  10: $spacer * 10,
+  12: $spacer * 12,
+);
+
+// === Container ===
+$container-max-widths: (
+  sm: 540px,
+  md: 720px,
+  lg: 960px,
+  xl: 1140px,
+  xxl: 1280px,
+);

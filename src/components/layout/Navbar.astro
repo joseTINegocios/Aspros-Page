@@ -1,0 +1,68 @@
+---
+import { siteConfig } from '../../data/config'
+import { navItems } from '../../data/navigation'
+const logoUrl = siteConfig.logoUrl
+const logoStickyUrl = siteConfig.logoStickyUrl
+
+export interface Props {
+  dark?: boolean
+}
+
+const { dark } = Astro.props
+const currentPath = Astro.url.pathname
+---
+
+<nav class="navbar navbar-expand-lg navbar-aspros fixed-top" id="mainNav" data-start-dark={dark ? 'true' : 'false'}>
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <img src={logoUrl} alt={siteConfig.nombre} id="mainLogo" data-logo={logoUrl} data-logo-sticky={logoStickyUrl} />
+    </a>
+    <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ms-auto">
+        {navItems.map(item => {
+          const isActive = currentPath === item.href || (item.href !== '/' && currentPath.startsWith(item.href))
+          return (
+            <li class="nav-item">
+              <a class={`nav-link${isActive ? ' active' : ''}`} href={item.href}>{item.label}</a>
+            </li>
+          )
+        })}
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<style>
+  .nav-link.active {
+    font-weight: 600;
+    color: #C9D300 !important;
+  }
+  .navbar-light .nav-link.active {
+    color: #1f422c !important;
+  }
+</style>
+
+<script>
+  const navbar = document.getElementById('mainNav')
+  const logo = document.getElementById('mainLogo')
+  const startDark = navbar.dataset.startDark === 'true'
+
+  function updateNavbar() {
+    if (window.scrollY > 50 || !startDark) {
+      navbar.classList.add('scrolled', 'bg-white', 'shadow-sm')
+      navbar.classList.remove('bg-transparent', 'navbar-dark')
+      navbar.classList.add('navbar-light')
+      if (logo) logo.src = logo.dataset.logoSticky
+    } else {
+      navbar.classList.remove('scrolled', 'bg-white', 'shadow-sm', 'navbar-light')
+      navbar.classList.add('bg-transparent', 'navbar-dark')
+      if (logo) logo.src = logo.dataset.logo
+    }
+  }
+
+  window.addEventListener('scroll', updateNavbar, { passive: true })
+  updateNavbar()
+</script>

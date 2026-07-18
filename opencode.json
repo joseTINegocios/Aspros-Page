@@ -1,0 +1,9 @@
+{
+  "permission": {
+    "skill": {
+      "*": "allow",
+      "interface-design": "allow",
+      "frontend-design": "allow"
+    }
+  }
+}

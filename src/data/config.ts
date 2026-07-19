@@ -31,13 +31,13 @@ export const siteConfig = {
   },
   heroSlides: [
     {
-      imagen: '/images/hero/hero-slide-1.webp',
-      logo: '/images/logos-hybrids/cromo-logo.svg',
+      imagen: '',
       colorTexto: '#ffffff',
       colorHighlight: '#FFEC00',
-      bullets: ['De sobresaliente vigor', 'Gran sanidad de planta y mazorca', 'Excelente adaptabilidad a diversos ambientes'],
-      link: '/hibridos/cromo',
-      linkText: 'Más información',
+      titulo: 'México sembrando grandeza',
+      bullets: ['40+ años de experiencia junto al productor mexicano', '13 híbridos de maíz de alta calidad', '6 regiones con genética adaptada a cada clima'],
+      link: '/hibridos',
+      linkText: 'Encuentra tu híbrido ideal',
     },
     {
       imagen: '/images/hero/hero-slide-2.webp',
@@ -46,7 +46,7 @@ export const siteConfig = {
       colorHighlight: '#C9D300',
       bullets: ['De mazorca grande y excelente calidad de grano', 'Ideal para 60 mil semillas por ha', 'Gran tolerancia al Fusarium'],
       link: '/hibridos/predator',
-      linkText: 'Más información',
+      linkText: 'Ver predator',
     },
     {
       imagen: '/images/hero/hero-slide-3.webp',
@@ -56,7 +56,7 @@ export const siteConfig = {
       titulo: 'El protector de la cosecha',
       bullets: ['Mazorcas uniformes de alto peso específico', 'Hasta 94% de plantas productivas', 'Sanidad de planta sobresaliente'],
       link: '/hibridos/sargento',
-      linkText: 'Más información',
+      linkText: 'Ver sargento',
     },
     {
       imagen: '/images/hero/hero-slide-4.png',
@@ -66,7 +66,7 @@ export const siteConfig = {
       titulo: 'Valles Altos es Nación Comanche',
       bullets: ['Gran sanidad de planta foliar', 'Ideal para Valles Altos', 'Cuateo hasta del 80%'],
       link: '/hibridos/comanche',
-      linkText: 'Más información',
+      linkText: 'Ver comanche',
     },
     {
       imagen: '/images/hero/hero-slide-5.png',
@@ -76,7 +76,7 @@ export const siteConfig = {
       titulo: 'La semilla de la excelencia',
       bullets: ['Excelente estabilidad de planta', 'Máximo vigor inicial', 'Tallos y raíces resistentes hasta la cosecha'],
       link: '/hibridos/espartaco',
-      linkText: 'Más información',
+      linkText: 'Ver espartaco',
     },
   ],
   redes: [

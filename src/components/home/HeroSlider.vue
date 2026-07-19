@@ -4,8 +4,8 @@
       <div class="swiper-wrapper">
         <div v-for="(slide, i) in slides" :key="i" class="swiper-slide">
           <div class="hero-slide">
-            <div class="hero-bg" :style="{ backgroundImage: `url(${slide.imagen})` }"></div>
-            <div class="hero-overlay" :style="{ background: `rgba(0,0,0,${slide.colorTexto === '#ffffff' ? 0.45 : 0.2})` }"></div>
+            <div class="hero-bg" :style="slide.imagen ? { backgroundImage: `url(${slide.imagen})` } : { background: 'linear-gradient(135deg, #0d1f12 0%, #1f422c 50%, #0d1f12 100%)' }"></div>
+            <div class="hero-overlay" :style="{ background: slide.imagen ? `rgba(0,0,0,${slide.colorTexto === '#ffffff' ? 0.45 : 0.2})` : 'transparent' }"></div>
             <div class="container hero-content" :style="{ color: slide.colorTexto }">
               <img v-if="slide.logo" :src="slide.logo" :alt="'Logo'" class="hero-logo img-fluid" />
               <h2 v-if="slide.titulo" class="hero-title" v-html="slide.titulo.replace(/\n/g, '<br>')"></h2>

@@ -2,12 +2,10 @@
   <div class="modal fade" id="hybridQuickViewModal" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable">
       <div class="modal-content border-0" v-if="hybrid">
-        <div class="modal-header border-0" style="background: #1f422c;">
-          <div class="d-flex align-items-center gap-3">
-            <img v-if="hybrid.logoUrl" :src="hybrid.logoUrl" :alt="hybrid.nombre" height="36" style="object-fit: contain;" />
-            <h5 v-else class="modal-title fw-bold mb-0 text-white">{{ hybrid.nombre }}</h5>
-          </div>
-          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+        <div class="modal-header border-0 justify-content-center position-relative" style="background: #555;">
+          <img v-if="hybrid.logoUrl" :src="hybrid.logoUrl" :alt="hybrid.nombre" style="height: 2.5rem; width: auto; object-fit: contain;" @error="hybrid.logoUrl = ''" />
+          <h5 v-if="!hybrid.logoUrl" class="modal-title fw-bold mb-0 text-white text-center">{{ hybrid.nombre }}</h5>
+          <button type="button" class="btn-close btn-close-white position-absolute end-0 me-3" data-bs-dismiss="modal" aria-label="Cerrar" style="top:50%;transform:translateY(-50%);"></button>
         </div>
         <div class="modal-body">
           <div class="row g-4">
@@ -35,9 +33,9 @@
             </div>
             <div class="col-9">
               <div class="row g-3">
-                <div class="col-8">
-                  <div class="card border-0 bg-light h-100">
-                    <img :src="hybrid.imagenes.general || baseUrl + 'images/fichas/samurai/general.png'" :alt="hybrid.nombre" class="card-img-top" style="object-fit: contain; height: 310px;" />
+                <div class="col-7">
+                  <div class="card border-0 h-100 d-flex align-items-center justify-content-center">
+                    <img :src="hybrid.imagenes.general || baseUrl + 'images/fichas/samurai/general.png'" :alt="hybrid.nombre" style="max-height: 280px; max-width: 100%; object-fit: contain;" />
                   </div>
                 </div>
                 <div class="col-4">

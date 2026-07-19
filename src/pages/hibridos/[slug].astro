@@ -1,4 +1,5 @@
 ---
+import fs from 'fs'
 import BaseLayout from '../../layouts/BaseLayout.astro'
 import { hybrids, getHybridBySlug, getRelatedHybrids } from '../../data/hybrids'
 import { getZonesByHybridId } from '../../data/zones'
@@ -15,6 +16,8 @@ const { hybrid } = Astro.props
 const hybridZonas = getZonesByHybridId(hybrid.id)
 const zone = hybridZonas[0]
 const relacionados = getRelatedHybrids(hybrid)
+const logoPath = `public/images/logos-hybrids/${hybrid.slug}-logo.svg`
+const hasLogo = fs.existsSync(logoPath)
 ---
 
 <BaseLayout
@@ -29,7 +32,11 @@ const relacionados = getRelatedHybrids(hybrid)
   <section class="hybrid-detail-hero" style={`background-image: url('${getUrl(hybrid.imagenes.hero)}')`}>
     <div class="container d-flex align-items-center min-vh-50" style="min-height: 50vh;">
       <div class="text-white" style="text-shadow: 0 2px 8px rgba(0,0,0,0.5);">
-        <h1 class="display-4 fw-bold">{hybrid.nombre}</h1>
+        {hasLogo ? (
+          <img src={getUrl(`/images/logos-hybrids/${hybrid.slug}-logo.svg`)} alt={hybrid.nombre} style="height: 3rem; width: auto; object-fit: contain;" />
+        ) : (
+          <h1 class="display-4 fw-bold">{hybrid.nombre}</h1>
+        )}
         <p class="lead fs-5 mb-3">{hybrid.descripcionCorta}</p>
         <div class="d-flex flex-wrap gap-3">
           <span class="badge bg-gold text-dark fs-6 px-3 py-2">{hybrid.ciclo}</span>
@@ -105,7 +112,7 @@ const relacionados = getRelatedHybrids(hybrid)
         </div>
 
         <div class="col-lg-4">
-          <div class="card border-0 bg-light shadow-sm p-4 sticky-lg-top" style="top: 5rem;">
+          <div class="card border-0 p-4 sticky-lg-top" style="top: 5rem;">
             <h3 class="h5 fw-bold mb-3">Información General</h3>
             <table class="table table-sm table-borderless mb-0">
               <tbody>

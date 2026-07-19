@@ -20,17 +20,8 @@ import { getUrl } from '../../utils/url'
           ))}
         </div>
       </div>
-      <div class="col-lg-2 col-md-4">
-        <h5 class="footer-title">Navegación</h5>
-        <ul class="list-unstyled">
-          {navItems.map(item => (
-            <li class="mb-2">
-              <a href={getUrl(item.href)}>{item.label}</a>
-            </li>
-          ))}
-        </ul>
-      </div>
-      <div class="col-lg-3 col-md-4">
+
+      <div class="col-lg-4 col-md-4">
         <h5 class="footer-title">Contacto</h5>
         <ul class="list-unstyled">
           <li class="mb-2">
@@ -48,15 +39,14 @@ import { getUrl } from '../../utils/url'
           </li>
         </ul>
       </div>
-      <div class="col-lg-3 col-md-4">
-        <h5 class="footer-title">Enlaces</h5>
+      <div class="col-lg-4 col-md-4">
+        <h5 class="footer-title">Servicios</h5>
         <ul class="list-unstyled">
-          <li class="mb-2"><a href={getUrl('/hibridos')}>Catálogo de Híbridos</a></li>
-          <li class="mb-2"><a href={getUrl('/resultados')}>Resultados</a></li>
-          <li class="mb-2"><a href={getUrl('/innovacion')}>Innovación</a></li>
-          <li class="mb-2"><a href={getUrl('/historia')}>Nuestra Historia</a></li>
-          <li class="mb-2"><a href={getUrl('/hablemos')}>Hablemos</a></li>
-          <li class="mb-2"><a href={getUrl('/bolsa-de-trabajo')}>Bolsa de Trabajo</a></li>
+          <li class="mb-2"><a href={getUrl('/hablemos')}>Solicitar cotización</a></li>
+          <li class="mb-2"><a href={getUrl('/hibridos')}>Buscar híbrido ideal</a></li>
+          <li class="mb-2"><a href={getUrl('/resultados')}>Ver resultados en campo</a></li>
+          <li class="mb-2"><a href={getUrl('/bolsa-de-trabajo')}>Únete al equipo</a></li>
+          <li class="mb-2"><a href={`mailto:${siteConfig.email}`}>Atención a clientes</a></li>
         </ul>
       </div>
     </div>

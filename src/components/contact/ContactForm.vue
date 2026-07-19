@@ -1,39 +1,39 @@
 <template>
   <form @submit.prevent="handleSubmit" class="contact-form">
-    <div class="row g-3">
+    <div class="row g-2">
       <div class="col-md-6">
-        <label for="name" class="form-label">Nombre</label>
-        <input type="text" id="name" v-model="form.name" class="form-control" required />
+        <label for="name" class="form-label small mb-0">Nombre</label>
+        <input type="text" id="name" v-model="form.name" class="form-control form-control-sm" required />
       </div>
       <div class="col-md-6">
-        <label for="email" class="form-label">Correo Electrónico</label>
-        <input type="email" id="email" v-model="form.email" class="form-control" />
+        <label for="email" class="form-label small mb-0">Correo Electrónico</label>
+        <input type="email" id="email" v-model="form.email" class="form-control form-control-sm" />
       </div>
       <div class="col-md-6">
-        <label for="city" class="form-label">Ciudad</label>
-        <input type="text" id="city" v-model="form.city" class="form-control" required />
+        <label for="city" class="form-label small mb-0">Ciudad</label>
+        <input type="text" id="city" v-model="form.city" class="form-control form-control-sm" required />
       </div>
       <div class="col-md-6">
-        <label for="state" class="form-label">Estado</label>
-        <select id="state" v-model="form.state" class="form-select">
+        <label for="state" class="form-label small mb-0">Estado</label>
+        <select id="state" v-model="form.state" class="form-select form-select-sm">
           <option value="">Selecciona un estado</option>
           <option v-for="s in estados" :key="s" :value="s">{{ s }}</option>
         </select>
       </div>
       <div class="col-md-6">
-        <label for="phone" class="form-label">Teléfono</label>
-        <input type="tel" id="phone" v-model="form.phone" class="form-control" required />
+        <label for="phone" class="form-label small mb-0">Teléfono</label>
+        <input type="tel" id="phone" v-model="form.phone" class="form-control form-control-sm" required />
       </div>
       <div class="col-md-6">
-        <label for="zonaInteres" class="form-label">Zona de interés</label>
-        <select id="zonaInteres" v-model="form.zonaInteres" class="form-select">
+        <label for="zonaInteres" class="form-label small mb-0">Zona de interés</label>
+        <select id="zonaInteres" v-model="form.zonaInteres" class="form-select form-select-sm">
           <option value="">Selecciona una zona</option>
           <option v-for="z in zonas" :key="z" :value="z">{{ z }}</option>
         </select>
       </div>
       <div class="col-12">
-        <label for="message" class="form-label">Mensaje</label>
-        <textarea id="message" v-model="form.message" class="form-control" rows="4"></textarea>
+        <label for="message" class="form-label small mb-0">Mensaje</label>
+        <textarea id="message" v-model="form.message" class="form-control form-control-sm" rows="2"></textarea>
       </div>
       <div class="col-12">
         <div class="form-check">
@@ -44,7 +44,7 @@
         </div>
       </div>
       <div class="col-12">
-        <button type="submit" class="btn btn-gold btn-lg w-100" :disabled="sending">
+        <button type="submit" class="btn btn-gold w-100" :disabled="sending">
           {{ sending ? 'Enviando...' : 'Enviar mensaje' }}
         </button>
       </div>

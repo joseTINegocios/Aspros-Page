@@ -59,46 +59,46 @@ const steps = [
   </div>
 
   <!-- Stats -->
-  <section class="section-dark stats-section text-center">
+  <section class="section-dark text-center py-1">
     <div class="container">
-      <div class="row g-3 justify-content-center">
-        <div class="col-4 col-md-3">
-          <div class="stat-number">{siteConfig.stats.anos}+</div>
-          <div class="stat-label">Años</div>
+      <div class="row g-0 justify-content-center">
+        <div class="col-4 col-md-2">
+          <div class="fs-5 fw-bold" style="background:linear-gradient(135deg,#c9d300,#ffec00);-webkit-text-fill-color:transparent;background-clip:text;">{siteConfig.stats.anos}+</div>
+          <div class="text-white-50 text-uppercase" style="font-size:.7rem;letter-spacing:.05em;">Años</div>
         </div>
-        <div class="col-4 col-md-3">
-          <div class="stat-number">{siteConfig.stats.hibridos}</div>
-          <div class="stat-label">Híbridos</div>
+        <div class="col-4 col-md-2">
+          <div class="fs-5 fw-bold" style="background:linear-gradient(135deg,#c9d300,#ffec00);-webkit-text-fill-color:transparent;background-clip:text;">{siteConfig.stats.hibridos}</div>
+          <div class="text-white-50 text-uppercase" style="font-size:.7rem;letter-spacing:.05em;">Híbridos</div>
         </div>
-        <div class="col-4 col-md-3">
-          <div class="stat-number">{siteConfig.stats.zonas}</div>
-          <div class="stat-label">Zonas</div>
+        <div class="col-4 col-md-2">
+          <div class="fs-5 fw-bold" style="background:linear-gradient(135deg,#c9d300,#ffec00);-webkit-text-fill-color:transparent;background-clip:text;">{siteConfig.stats.zonas}</div>
+          <div class="text-white-50 text-uppercase" style="font-size:.7rem;letter-spacing:.05em;">Zonas</div>
         </div>
       </div>
     </div>
   </section>
 
   <!-- Tecnología -->
-  <section class="section-tech section-padding" data-aos="fade-up">
+  <section class="section-tech py-3" data-aos="fade-up">
     <div class="container">
-      <div class="row align-items-center g-5">
+      <div class="row align-items-center g-3">
         <div class="col-lg-7">
-          <h2 class="section-title text-start mb-3">TECNOLOGÍA</h2>
-          <p class="text-white mb-4">En Aspros utilizamos tecnología de punta para desarrollar híbridos de maíz de la más alta calidad.</p>
-          <div class="row g-3">
+          <h2 class="section-title text-start mb-2">TECNOLOGÍA</h2>
+          <p class="text-white mb-2">En Aspros utilizamos tecnología de punta para desarrollar híbridos de maíz de la más alta calidad.</p>
+          <div class="row g-2">
             {techs.map(t => (
               <div class="col-md-6">
-                <div class="tech-card h-100">
-                  <div class="tech-icon" style="background: {t.color}22; color: {t.color}; border: 1px solid {t.color}44;">{t.icon}</div>
-                  <h3>{t.title}</h3>
-                  <p>{t.desc}</p>
+                <div class="tech-card h-100" style="padding:1rem;">
+                  <div class="tech-icon" style="width:36px;height:36px;margin-bottom:.5rem;font-size:1rem;background:{t.color}22;color:{t.color};border:1px solid {t.color}44;">{t.icon}</div>
+                  <h3 style="font-size:.95rem;margin-bottom:.25rem;">{t.title}</h3>
+                  <p style="font-size:.8rem;">{t.desc}</p>
                 </div>
               </div>
             ))}
           </div>
         </div>
         <div class="col-lg-5 text-center">
-          <div class="corn-cob-3d">
+          <div class="corn-cob-3d" style="width:80px;height:133px;">
             <div class="cob-body"></div>
             <div class="cob-body"></div>
             <div class="cob-body"></div>
@@ -196,20 +196,14 @@ const steps = [
   </section>
 
   <!-- Contacto -->
-  <section class="section-padding" id="contacto" data-aos="fade-up">
+  <section class="py-3" id="contacto" data-aos="fade-up">
     <div class="container">
       <div class="row justify-content-center">
-        <div class="col-lg-8">
+        <div class="col-lg-6">
           <h2 class="section-title">CONTACTO</h2>
-          <div class="row g-4 mb-4 text-center">
-            <div class="col-6">
-              <div class="small text-muted">Teléfono</div>
-              <a href={`tel:${siteConfig.telefono}`} class="text-decoration-none fw-semibold">{siteConfig.telefono}</a>
-            </div>
-            <div class="col-6">
-              <div class="small text-muted">Email</div>
-              <a href={`mailto:${siteConfig.email}`} class="text-decoration-none fw-semibold">{siteConfig.email}</a>
-            </div>
+          <div class="d-flex gap-3 mb-2 justify-content-center small">
+            <span><span class="text-muted">Tel: </span><a href={`tel:${siteConfig.telefono}`} class="text-decoration-none fw-semibold">{siteConfig.telefono}</a></span>
+            <span><span class="text-muted">Email: </span><a href={`mailto:${siteConfig.email}`} class="text-decoration-none fw-semibold">{siteConfig.email}</a></span>
           </div>
           <ContactForm client:load />
         </div>

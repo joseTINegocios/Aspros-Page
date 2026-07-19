@@ -73,7 +73,8 @@
 <script setup lang="ts">
 import { ref, onMounted } from 'vue'
 
-const baseUrl = import.meta.env.BASE_URL || '/'
+const raw = import.meta.env.BASE_URL || '/'
+const baseUrl = raw.endsWith('/') ? raw : raw + '/'
 
 interface Hybrid {
   id: string

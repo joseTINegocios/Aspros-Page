@@ -14,19 +14,19 @@
             <div class="col-3">
               <div class="d-flex flex-column gap-2">
                 <div class="card border-0 bg-light">
-                  <img :src="hybrid.imagenes.planta || '/images/fichas/samurai/planta.jpg'" :alt="hybrid.nombre + ' planta'" class="card-img-top" style="object-fit: cover; height: 90px;" />
+                  <img :src="hybrid.imagenes.planta || baseUrl + 'images/fichas/samurai/planta.jpg'" :alt="hybrid.nombre + ' planta'" class="card-img-top" style="object-fit: cover; height: 90px;" />
                   <div class="card-body text-center p-2">
                     <small class="text-muted fw-semibold">PLANTA</small>
                   </div>
                 </div>
                 <div class="card border-0 bg-light">
-                  <img :src="hybrid.imagenes.mazorca || '/images/fichas/samurai/mazorca.jpg'" :alt="hybrid.nombre + ' mazorca'" class="card-img-top" style="object-fit: cover; height: 90px;" />
+                  <img :src="hybrid.imagenes.mazorca || baseUrl + 'images/fichas/samurai/mazorca.jpg'" :alt="hybrid.nombre + ' mazorca'" class="card-img-top" style="object-fit: cover; height: 90px;" />
                   <div class="card-body text-center p-2">
                     <small class="text-muted fw-semibold">MAZORCA</small>
                   </div>
                 </div>
                 <div class="card border-0 bg-light">
-                  <img :src="hybrid.imagenes.grano || '/images/fichas/samurai/grano.jpg'" :alt="hybrid.nombre + ' grano'" class="card-img-top" style="object-fit: cover; height: 90px;" />
+                  <img :src="hybrid.imagenes.grano || baseUrl + 'images/fichas/samurai/grano.jpg'" :alt="hybrid.nombre + ' grano'" class="card-img-top" style="object-fit: cover; height: 90px;" />
                   <div class="card-body text-center p-2">
                     <small class="text-muted fw-semibold">GRANO</small>
                   </div>
@@ -37,7 +37,7 @@
               <div class="row g-3">
                 <div class="col-8">
                   <div class="card border-0 bg-light h-100">
-                    <img :src="hybrid.imagenes.general || '/images/fichas/samurai/general.png'" :alt="hybrid.nombre" class="card-img-top" style="object-fit: contain; height: 310px;" />
+                    <img :src="hybrid.imagenes.general || baseUrl + 'images/fichas/samurai/general.png'" :alt="hybrid.nombre" class="card-img-top" style="object-fit: contain; height: 310px;" />
                   </div>
                 </div>
                 <div class="col-4">
@@ -61,7 +61,7 @@
           </div>
         </div>
         <div class="modal-footer border-0 justify-content-center">
-          <a :href="`/hibridos/${hybrid.slug}`" class="btn btn-gold px-4">
+          <a :href="baseUrl + 'hibridos/' + hybrid.slug" class="btn btn-gold px-4">
             <i class="fas fa-file-alt me-2"></i>Ver ficha técnica
           </a>
         </div>
@@ -72,6 +72,8 @@
 
 <script setup lang="ts">
 import { ref, onMounted } from 'vue'
+
+const baseUrl = import.meta.env.BASE_URL || '/'
 
 interface Hybrid {
   id: string

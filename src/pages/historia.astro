@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro'
 import { historiaPage } from '../data/historia'
+import { getUrl } from '../utils/url'
 ---
 
 <BaseLayout
@@ -87,8 +88,8 @@ import { historiaPage } from '../data/historia'
     <div class="container">
       <h2 class="section-title text-white">¿Listo para trabajar juntos?</h2>
       <p class="text-white mb-4">Descubre cómo nuestros híbridos pueden impulsar tu próxima cosecha.</p>
-      <a href="/hibridos" class="btn btn-gold btn-lg me-2">Ver híbridos</a>
-      <a href="/hablemos" class="btn btn-outline-light btn-lg">Contáctanos</a>
+      <a href={getUrl('/hibridos')} class="btn btn-gold btn-lg me-2">Ver híbridos</a>
+      <a href={getUrl('/hablemos')} class="btn btn-outline-light btn-lg">Contáctanos</a>
     </div>
   </section>
 </BaseLayout>

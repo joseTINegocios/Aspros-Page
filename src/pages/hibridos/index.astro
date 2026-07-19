@@ -3,6 +3,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro'
 import { hybrids } from '../../data/hybrids'
 import { zones, getZoneIdsByHybridId } from '../../data/zones'
 import HybridQuickView from '../../components/hibridos/HybridQuickView.vue'
+import { getUrl } from '../../utils/url'
 
 const zonesWithSubzonas = zones.filter(z => z.subzonas && z.subzonas.length > 0)
 ---
@@ -50,7 +51,7 @@ const zonesWithSubzonas = zones.filter(z => z.subzonas && z.subzonas.length > 0)
               <div class="card hybrid-card h-100 border-0 shadow-sm">
                 <div
                   class="card-img-top hybrid-card-image"
-                  style={`background-image: url('${h.imagenes.hero}'); height: 220px;`}
+                  style={`background-image: url('${getUrl(h.imagenes.hero)}'); height: 220px;`}
                 >
                   {h.destacado && <span class="hybrid-card-badge">Destacado</span>}
                   <div class="hybrid-card-tech">{h.tecnologia}</div>
@@ -86,15 +87,15 @@ const zonesWithSubzonas = zones.filter(z => z.subzonas && z.subzonas.length > 0)
                       data-descripcion={h.descripcionLarga}
                       data-dobleproposito={h.dobleProposito ? 'true' : 'false'}
                       data-resistencias={h.resistencias.join(',')}
-                      data-planta={h.imagenes.planta || `/images/fichas/samurai/planta.jpg`}
-                      data-mazorca={h.imagenes.mazorca || `/images/fichas/samurai/mazorca.jpg`}
-                      data-grano={h.imagenes.grano || `/images/fichas/samurai/grano.jpg`}
-                      data-general={h.imagenes.general || `/images/fichas/samurai/general.png`}
-                      data-logo={`/images/logos-hybrids/${h.id}-logo.svg`}
+                      data-planta={getUrl(h.imagenes.planta || '/images/fichas/samurai/planta.jpg')}
+                      data-mazorca={getUrl(h.imagenes.mazorca || '/images/fichas/samurai/mazorca.jpg')}
+                      data-grano={getUrl(h.imagenes.grano || '/images/fichas/samurai/grano.jpg')}
+                      data-general={getUrl(h.imagenes.general || '/images/fichas/samurai/general.png')}
+                      data-logo={getUrl(`/images/logos-hybrids/${h.id}-logo.svg`)}
                     >
                       <i class="fas fa-eye me-1"></i>Ver más
                     </button>
-                    <a href={`/hibridos/${h.slug}`} class="btn btn-gold">
+                    <a href={getUrl(`/hibridos/${h.slug}`)} class="btn btn-gold">
                       <i class="fas fa-file-alt"></i>
                     </a>
                   </div>
@@ -111,6 +112,10 @@ const zonesWithSubzonas = zones.filter(z => z.subzonas && z.subzonas.length > 0)
 </BaseLayout>
 
 <script>
+  var BASE = self.BASE_URL || '/'
+  try { BASE = import.meta.env.BASE_URL } catch(e) {}
+  function baseUrl(p) { return BASE.replace(/\/$/, '') + '/' + p.replace(/^\//, '') }
+
   const params = new URLSearchParams(location.search)
   const activeZona = params.get('zona') || 'all'
   const activeSubzona = params.get('subzona')
@@ -134,7 +139,7 @@ const zonesWithSubzonas = zones.filter(z => z.subzonas && z.subzonas.length > 0)
     if (zona) {
       zoneNames[zona] = b.textContent.trim()
       b.addEventListener('click', () => {
-        history.replaceState(null, '', zona === 'all' ? '/hibridos' : `?zona=${zona}`)
+        history.replaceState(null, '', zona === 'all' ? baseUrl('/hibridos') : `?zona=${zona}`)
         filter(zona, 'all')
       })
     }
@@ -145,8 +150,8 @@ const zonesWithSubzonas = zones.filter(z => z.subzonas && z.subzonas.length > 0)
       const subzonaId = b.dataset.subzona
       const parentRow = b.closest('[id^="subzonas-"]')
       const zonaId = parentRow ? (parentRow as HTMLElement).dataset.parentZone : 'all'
-      const url = zonaId === 'all' ? '/hibridos' : subzonaId === 'all' ? `?zona=${zonaId}` : `?zona=${zonaId}&subzona=${subzonaId}`
-      history.replaceState(null, '', url)
+      const newUrl = zonaId === 'all' ? baseUrl('/hibridos') : subzonaId === 'all' ? `?zona=${zonaId}` : `?zona=${zonaId}&subzona=${subzonaId}`
+      history.replaceState(null, '', newUrl)
       filter(zonaId, subzonaId)
     })
   })

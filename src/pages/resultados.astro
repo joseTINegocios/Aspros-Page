@@ -4,6 +4,7 @@ import * as zoneMod from '../data/zones'
 import * as hybridMod from '../data/hybrids'
 import * as testimonialMod from '../data/testimonials'
 import * as resultMod from '../data/resultados'
+import { getUrl } from '../utils/url'
 
 const zones = zoneMod.zones
 const hybrids = hybridMod.hybrids
@@ -77,7 +78,7 @@ function getHybridZoneId(hybridName) {
             <div class="col-md-6 col-lg-4 testimonial-item" data-zona={zonaId}>
               <div class="card border-0 shadow-sm h-100 overflow-hidden">
                 <div style="aspect-ratio: 1/1; max-height: 260px; overflow: hidden;">
-                  <img src={t.imagen} alt={t.nombre} class="w-100 h-100" style="object-fit: cover; object-position: top center;" loading="lazy" />
+                  <img src={getUrl(t.imagen)} alt={t.nombre} class="w-100 h-100" style="object-fit: cover; object-position: top center;" loading="lazy" />
                 </div>
                 <div class="card-body">
                   <p class="card-text fst-italic text-muted small mb-2">{"\u201C" + t.texto + "\u201D"}</p>

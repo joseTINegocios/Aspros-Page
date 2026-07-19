@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro'
+import { getUrl } from '../utils/url'
 ---
 
 <BaseLayout title="Página no encontrada">
@@ -8,7 +9,7 @@ import BaseLayout from '../layouts/BaseLayout.astro'
       <h1 class="display-1 fw-bold text-green-dark mb-3">404</h1>
       <h2 class="h3 mb-4">Página no encontrada</h2>
       <p class="lead text-muted mb-5">La página que buscas no existe o ha sido movida.</p>
-      <a href="/" class="btn btn-gold btn-lg">Volver al inicio</a>
+      <a href={getUrl('/')} class="btn btn-gold btn-lg">Volver al inicio</a>
     </div>
   </section>
 </BaseLayout>

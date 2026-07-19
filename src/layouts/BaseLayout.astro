@@ -4,6 +4,7 @@ import Navbar from '../components/layout/Navbar.astro'
 import Footer from '../components/layout/Footer.astro'
 import Breadcrumbs from '../components/layout/Breadcrumbs.astro'
 import { siteConfig } from '../data/config'
+import { getUrl } from '../utils/url'
 
 export interface Props {
   title?: string
@@ -30,7 +31,7 @@ const siteDescription = description || 'Semillas de Maíz de Alta Calidad en Mé
     <meta property="og:description" content={siteDescription} />
     <meta property="og:type" content="website" />
     <meta property="og:url" content={Astro.url} />
-    <meta property="og:image" content={`https://asprossemillas.com/images/logo.svg`} />
+    <meta property="og:image" content={new URL(getUrl('/images/logo-aspros.svg'), Astro.site).href} />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
     <!-- Twitter -->
@@ -54,8 +55,8 @@ const siteDescription = description || 'Semillas de Maíz de Alta Calidad en Mé
     <link rel="stylesheet" href="https://unpkg.com/aos@2.3.4/dist/aos.css" />
 
     <!-- Favicon -->
-    <link rel="icon" type="image/png" href="/favicon.png" />
-    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+    <link rel="icon" type="image/png" href={getUrl('/favicon.png')} />
+    <link rel="icon" type="image/x-icon" href={getUrl('/favicon.ico')} />
   </head>
   <body>
     <Navbar dark={navbarDark} />

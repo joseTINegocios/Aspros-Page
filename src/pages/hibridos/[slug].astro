@@ -2,6 +2,7 @@
 import BaseLayout from '../../layouts/BaseLayout.astro'
 import { hybrids, getHybridBySlug, getRelatedHybrids } from '../../data/hybrids'
 import { getZonesByHybridId } from '../../data/zones'
+import { getUrl } from '../../utils/url'
 
 export function getStaticPaths() {
   return hybrids.map(h => ({
@@ -25,7 +26,7 @@ const relacionados = getRelatedHybrids(hybrid)
   ]}
 >
   <!-- Hero -->
-  <section class="hybrid-detail-hero" style={`background-image: url('${hybrid.imagenes.hero}')`}>
+  <section class="hybrid-detail-hero" style={`background-image: url('${getUrl(hybrid.imagenes.hero)}')`}>
     <div class="container d-flex align-items-center min-vh-50" style="min-height: 50vh;">
       <div class="text-white" style="text-shadow: 0 2px 8px rgba(0,0,0,0.5);">
         <h1 class="display-4 fw-bold">{hybrid.nombre}</h1>
@@ -56,7 +57,7 @@ const relacionados = getRelatedHybrids(hybrid)
           <div class="row g-4">
             <div class="col-md-4">
               <div class="card border-0 bg-light shadow-sm h-100 p-3 text-center">
-                <img src="/images/icons/planta.svg" alt="Planta" class="mb-2 mx-auto" style="width: 48px; height: 48px;" />
+                <img src={getUrl('/images/icons/planta.svg')} alt="Planta" class="mb-2 mx-auto" style="width: 48px; height: 48px;" />
                 <h3 class="h6 fw-bold">Planta</h3>
                 <ul class="list-unstyled small mb-0">
                   {hybrid.caracteristicasPlanta.map(c => <li><i class="fas fa-check text-green-dark me-1"></i>{c}</li>)}
@@ -65,7 +66,7 @@ const relacionados = getRelatedHybrids(hybrid)
             </div>
             <div class="col-md-4">
               <div class="card border-0 bg-light shadow-sm h-100 p-3 text-center">
-                <img src="/images/icons/mazorca.svg" alt="Mazorca" class="mb-2 mx-auto" style="width: 48px; height: 48px;" />
+                <img src={getUrl('/images/icons/mazorca.svg')} alt="Mazorca" class="mb-2 mx-auto" style="width: 48px; height: 48px;" />
                 <h3 class="h6 fw-bold">Mazorca</h3>
                 <ul class="list-unstyled small mb-0">
                   {hybrid.caracteristicasMazorca.map(c => <li><i class="fas fa-check text-green-dark me-1"></i>{c}</li>)}
@@ -74,7 +75,7 @@ const relacionados = getRelatedHybrids(hybrid)
             </div>
             <div class="col-md-4">
               <div class="card border-0 bg-light shadow-sm h-100 p-3 text-center">
-                <img src="/images/icons/grano.svg" alt="Grano" class="mb-2 mx-auto" style="width: 48px; height: 48px;" />
+                <img src={getUrl('/images/icons/grano.svg')} alt="Grano" class="mb-2 mx-auto" style="width: 48px; height: 48px;" />
                 <h3 class="h6 fw-bold">Grano</h3>
                 <ul class="list-unstyled small mb-0">
                   {hybrid.caracteristicasGrano.map(c => <li><i class="fas fa-check text-green-dark me-1"></i>{c}</li>)}
@@ -116,7 +117,7 @@ const relacionados = getRelatedHybrids(hybrid)
                 {zone && <tr><td class="fw-semibold ps-0">Zona</td><td class="pe-0 text-end">{zone.nombre}</td></tr>}
               </tbody>
             </table>
-            <a href="#contacto" class="btn btn-gold mt-3 w-100">
+            <a href={getUrl('/hablemos')} class="btn btn-gold mt-3 w-100">
               <i class="fas fa-phone-alt me-2"></i>Solicitar cotización
             </a>
           </div>
@@ -133,9 +134,9 @@ const relacionados = getRelatedHybrids(hybrid)
         <div class="row g-4 mt-2">
           {relacionados.map(r => (
             <div class="col-lg-3 col-md-6">
-              <a href={`/hibridos/${r.slug}`} class="text-decoration-none">
+              <a href={getUrl(`/hibridos/${r.slug}`)} class="text-decoration-none">
                 <div class="card hybrid-card h-100 border-0 shadow-sm">
-                  <div class="card-img-top hybrid-card-image" style={`background-image: url('${r.imagenes.hero}'); height: 180px;`}>
+                  <div class="card-img-top hybrid-card-image" style={`background-image: url('${getUrl(r.imagenes.hero)}'); height: 180px;`}>
                     {r.destacado && <span class="hybrid-card-badge">Destacado</span>}
                   </div>
                   <div class="card-body">

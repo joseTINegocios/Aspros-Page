@@ -8,6 +8,19 @@ import HeroSlider from '../components/home/HeroSlider.vue'
 import Testimonials from '../components/home/Testimonials.vue'
 import ContactForm from '../components/contact/ContactForm.vue'
 import { getZonesByHybridId } from '../data/zones'
+import { getUrl } from '../utils/url'
+
+const prefixedSlides = siteConfig.heroSlides.map(s => ({
+  ...s,
+  imagen: getUrl(s.imagen),
+  logo: s.logo ? getUrl(s.logo) : undefined,
+  link: getUrl(s.link),
+}))
+
+const prefixedTestimonials = testimonials.map(t => ({
+  ...t,
+  imagen: getUrl(t.imagen),
+}))
 
 const featured = getFeaturedHybrids().slice(0, 4)
 const techs = [
@@ -25,7 +38,7 @@ const steps = [
 
 <BaseLayout title="Inicio" navbarDark={true}>
   <!-- Hero -->
-  <HeroSlider slides={siteConfig.heroSlides} client:load />
+  <HeroSlider slides={prefixedSlides} client:load />
 
   <!-- Sello + CTA bar -->
   <div class="section-dark py-3">
@@ -37,9 +50,9 @@ const steps = [
           </span>
         </div>
         <div class="col text-center text-md-end">
-          <a href="/hibridos" class="btn btn-gold btn-sm me-2">Conoce nuestros híbridos</a>
-          <a href="/hibridos" class="btn btn-outline-gold btn-sm me-2">Encuentra tu zona</a>
-          <a href="/hablemos" class="btn btn-outline-light btn-sm">Contáctanos</a>
+          <a href={getUrl('/hibridos')} class="btn btn-gold btn-sm me-2">Conoce nuestros híbridos</a>
+          <a href={getUrl('/hibridos')} class="btn btn-outline-gold btn-sm me-2">Encuentra tu zona</a>
+          <a href={getUrl('/hablemos')} class="btn btn-outline-light btn-sm">Contáctanos</a>
         </div>
       </div>
     </div>
@@ -128,9 +141,9 @@ const steps = [
           const zona = hybridZonas[0]
           return (
             <div class="col-6 col-lg-3">
-              <a href={`/hibridos/${h.slug}`} class="text-decoration-none">
+              <a href={getUrl(`/hibridos/${h.slug}`)} class="text-decoration-none">
                 <div class="card hybrid-card h-100 border-0 shadow-sm">
-                  <div class="card-img-top hybrid-card-image" style={`background-image: url('${h.imagenes.hero}')`}>
+                  <div class="card-img-top hybrid-card-image" style={`background-image: url('${getUrl(h.imagenes.hero)}')`}>
                     <div class="hybrid-card-tech">{h.tecnologia}</div>
                   </div>
                   <div class="card-body">
@@ -145,7 +158,7 @@ const steps = [
         })}
       </div>
       <div class="text-center mt-3">
-        <a href="/hibridos" class="btn btn-outline-dark rounded-pill px-4">Ver todos los híbridos →</a>
+        <a href={getUrl('/hibridos')} class="btn btn-outline-dark rounded-pill px-4">Ver todos los híbridos →</a>
       </div>
     </div>
   </section>
@@ -157,7 +170,7 @@ const steps = [
       <div class="row g-2 justify-content-center">
         {zones.map(z => (
           <div class="col-6 col-md-4 col-lg-2">
-            <a href={`/hibridos?zona=${z.id}`} class="text-decoration-none">
+            <a href={getUrl(`/hibridos?zona=${z.id}`)} class="text-decoration-none">
               <div class="card border-0 shadow-sm text-center py-3 px-2 h-100">
                 <div class="small fw-bold" style={`color: ${z.color}`}>{z.nombre}</div>
                 <div class="small text-muted">{z.hybridIds.length} híbridos</div>
@@ -178,7 +191,7 @@ const steps = [
           <blockquote class="border-0 fs-5 fw-light fst-italic text-green-dark">{siteConfig.frase}</blockquote>
         </div>
       </div>
-      <Testimonials testimonials={testimonials} client:visible />
+      <Testimonials testimonials={prefixedTestimonials} client:visible />
     </div>
   </section>
 

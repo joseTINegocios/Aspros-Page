@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro'
 import { zones } from '../data/zones'
+import { getUrl } from '../utils/url'
 ---
 
 <BaseLayout
@@ -23,13 +24,13 @@ import { zones } from '../data/zones'
             <div class="card border-0 shadow-sm overflow-hidden">
               <div class="row g-0">
                 <div class="col-md-5">
-                  <div class="h-100 zone-card-image" style={`background-image: url('${z.imagen}'); min-height: 200px;`}></div>
+                  <div class="h-100 zone-card-image" style={`background-image: url('${getUrl(z.imagen)}'); min-height: 200px;`}></div>
                 </div>
                 <div class="col-md-7">
                   <div class="card-body">
                     <h3 class="h5 fw-bold mb-2" style={`color: ${z.color}`}>{z.nombre}</h3>
                     <p class="small text-muted mb-3">{z.descripcion}</p>
-                    <a href={`/hibridos?zona=${z.id}`} class="btn btn-sm btn-outline-success">
+                    <a href={getUrl(`/hibridos?zona=${z.id}`)} class="btn btn-sm btn-outline-success">
                       Ver {z.hybridIds.length} híbridos
                     </a>
                   </div>

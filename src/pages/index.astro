@@ -97,16 +97,18 @@ const steps = [
             ))}
           </div>
         </div>
-        <div class="col-lg-5 text-center">
-          <div class="corn-cob-3d" style="width:80px;height:133px;">
-            <div class="cob-body"></div>
-            <div class="cob-body"></div>
-            <div class="cob-body"></div>
-            <div class="cob-body"></div>
-            <div class="cob-body"></div>
-            <div class="cob-top"></div>
-            <div class="cob-bottom"></div>
-          </div>
+        <div class="col-lg-5 d-flex justify-content-center" style="min-height:300px;">
+          <model-viewer
+            src={getUrl('/mazorca.glb')}
+            alt="Mazorca 3D"
+            camera-controls
+            auto-rotate
+            rotation-per-second="30deg"
+            style="width:100%;max-width:300px;height:300px;"
+            shadow-intensity="1"
+            exposure="1.2"
+            reveal="auto"
+          ></model-viewer>
         </div>
       </div>
     </div>
@@ -211,3 +213,7 @@ const steps = [
     </div>
   </section>
 </BaseLayout>
+
+<script>
+  import '@google/model-viewer'
+</script>

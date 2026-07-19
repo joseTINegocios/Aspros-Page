@@ -83,8 +83,8 @@ export const videosProductores: VideoProductor[] = [
   {
     id: 6,
     titulo: 'Preparación del terreno antes de la siembra de maíz',
-    productor: 'Productores del Sur',
-    zona: 'sur',
+    productor: 'Productores del Centro',
+    zona: 'centro',
     url: 'https://www.youtube-nocookie.com/embed/aaGOfcPnaV0',
   },
 ]

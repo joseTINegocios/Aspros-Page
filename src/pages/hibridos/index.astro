@@ -24,7 +24,7 @@ const zonesWithSubzonas = zones.filter(z => z.subzonas && z.subzonas.length > 0)
       <div class="d-flex flex-wrap gap-2 justify-content-center mb-4" id="filterButtons">
         <button type="button" class="btn btn-sm fw-semibold rounded-pill px-3 btn-dark" data-zona="all">Todas las regiones</button>
         {zones.map(z => (
-          <button type="button" class="btn btn-sm fw-semibold rounded-pill px-3 btn-outline-secondary" data-zona={z.id} data-has-subzonas={z.subzonas && z.subzonas.length > 0 ? 'true' : 'false'}>{z.nombre}</button>
+          <button type="button" class="btn btn-sm fw-semibold rounded-pill px-3 btn-outline-secondary" data-zona={z.id} data-has-subzonas={z.subzonas && z.subzonas.length > 0 ? 'true' : 'false'} data-desc={z.descripcion}>{z.nombre}</button>
         ))}
       </div>
 
@@ -36,6 +36,7 @@ const zonesWithSubzonas = zones.filter(z => z.subzonas && z.subzonas.length > 0)
           ))}
         </div>
       ))}
+      <div id="zoneInfo" class="text-center text-muted small mb-3 d-none"></div>
     </div>
   </section>
 
@@ -126,7 +127,9 @@ const zonesWithSubzonas = zones.filter(z => z.subzonas && z.subzonas.length > 0)
   const items = document.querySelectorAll('.hybrid-item')
   const emptyMsg = document.getElementById('emptyMessage')
   const desc = document.getElementById('filterDescription')
+  const zoneInfo = document.getElementById('zoneInfo')
   const zoneNames: Record<string, string> = { all: 'Todas las regiones' }
+  const zoneDescs: Record<string, string> = {}
 
   const subzonaMap: Record<string, Element> = {}
   subzonaRows.forEach(row => {
@@ -138,6 +141,7 @@ const zonesWithSubzonas = zones.filter(z => z.subzonas && z.subzonas.length > 0)
     const zona = b.dataset.zona
     if (zona) {
       zoneNames[zona] = b.textContent.trim()
+      zoneDescs[zona] = b.dataset.desc || ''
       b.addEventListener('click', () => {
         history.replaceState(null, '', zona === 'all' ? baseUrl('/hibridos') : `?zona=${zona}`)
         filter(zona, 'all')
@@ -161,6 +165,15 @@ const zonesWithSubzonas = zones.filter(z => z.subzonas && z.subzonas.length > 0)
       b.classList.toggle('btn-dark', b.dataset.zona === zonaId)
       b.classList.toggle('btn-outline-secondary', b.dataset.zona !== zonaId)
     })
+
+    if (zoneInfo) {
+      if (zonaId === 'all') {
+        zoneInfo.classList.add('d-none')
+      } else {
+        zoneInfo.textContent = zoneDescs[zonaId] || ''
+        zoneInfo.classList.remove('d-none')
+      }
+    }
 
     subzonaRows.forEach(row => {
       const isActive = (row as HTMLElement).dataset.parentZone === zonaId

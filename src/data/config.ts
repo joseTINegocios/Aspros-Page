@@ -27,7 +27,7 @@ export const siteConfig = {
   stats: {
     anos: 40,
     hibridos: 13,
-    zonas: 6,
+    zonas: 5,
   },
   heroSlides: [
     {

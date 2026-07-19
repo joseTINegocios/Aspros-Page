@@ -58,7 +58,7 @@
 import { reactive, ref } from 'vue'
 
 const zonas = [
-  'Norte', 'Pacífico', 'Occidente', 'Bajío', 'Centro', 'Sur', 'Todas',
+  'Norte', 'Pacífico', 'Occidente', 'Bajío', 'Centro', 'Todas',
 ]
 
 const estados = [

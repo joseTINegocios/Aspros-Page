@@ -34,7 +34,7 @@ export const historiaPage = {
       titulo: 'Trayectoria',
       parrafos: [
         'A lo largo de más de 40 años, hemos desarrollado más de 13 híbridos de maíz de alta calidad, cada uno diseñado para condiciones específicas de las principales zonas agrícolas del país.',
-        'Nuestra red de distribución cubre desde el Norte hasta el Sur de México, pasando por el Pacífico, Occidente, Bajío y Centro, lo que nos permite estar cerca de los productores y entender sus necesidades.',
+        'Nuestra red de distribución cubre las principales regiones agrícolas de México: Pacífico, Occidente, Bajío, Centro y Norte, lo que nos permite estar cerca de los productores y entender sus necesidades.',
       ],
       icono: 'road',
     },
@@ -58,15 +58,14 @@ export const historiaPage = {
     {
       icono: 'map-marked-alt',
       titulo: 'Cobertura',
-      descripcion: 'Presencia en las 6 principales zonas agrícolas de México con distribución eficiente.',
+      descripcion: 'Presencia en las 5 principales zonas agrícolas de México con distribución eficiente.',
     },
   ],
   cobertura: [
-    { zona: 'Norte', estados: 'Chihuahua, Durango, Coahuila' },
-    { zona: 'Pacífico', estados: 'Sinaloa, Sonora, Nayarit' },
-    { zona: 'Occidente', estados: 'Jalisco, Nayarit, Colima' },
-    { zona: 'Bajío', estados: 'Guanajuato, Querétaro, Michoacán' },
-    { zona: 'Centro', estados: 'Estado de México, Hidalgo, Puebla, Tlaxcala' },
-    { zona: 'Sur', estados: 'Chiapas, Oaxaca, Tabasco' },
+    { zona: 'Norte', estados: 'Chihuahua, Coahuila, Durango' },
+    { zona: 'Pacífico', estados: 'Baja California, Baja California Sur, Sonora, Sinaloa' },
+    { zona: 'Occidente', estados: 'Nayarit, Jalisco, Michoacán' },
+    { zona: 'Bajío', estados: 'Zacatecas, San Luis Potosí, Aguascalientes, Guanajuato, Querétaro, Hidalgo' },
+    { zona: 'Centro', estados: 'Estado de México, CDMX, Morelos, Tlaxcala, Puebla' },
   ],
 }

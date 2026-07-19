@@ -11,35 +11,94 @@ import { getUrl } from '../utils/url'
 >
   <section class="section-padding pb-0">
     <div class="container">
-      <h1 class="section-title">{historiaPage.heroTitle}</h1>
-      <p class="lead text-center mb-0">{historiaPage.heroDesc}</p>
+      <h1 class="section-title">NUESTRA HISTORIA</h1>
     </div>
   </section>
 
-  <!-- Historia sections -->
-  {historiaPage.sections.map(s => (
-    <section class="section-padding" data-aos="fade-up">
-      <div class="container">
-        <div class="row justify-content-center">
-          <div class="col-lg-8">
-            <div class="d-flex align-items-start gap-3 mb-4">
-              <div class="flex-shrink-0">
-                <div class="d-flex align-items-center justify-content-center rounded-circle bg-green-dark text-white" style="width: 56px; height: 56px;">
-                  <i class={`fas fa-${s.icono} fs-5`}></i>
-                </div>
-              </div>
-              <div>
-                <h2 class="h3 fw-bold mb-3" style="margin-top: 0.25rem;">{s.titulo}</h2>
-                {s.parrafos.map(p => (
-                  <p class="text-muted">{p}</p>
-                ))}
-              </div>
+  <!-- Historia -->
+  <section class="section-padding pt-3">
+    <div class="container">
+      <div class="row g-5 align-items-center">
+        <div class="col-lg-5 text-center">
+          <img src={getUrl('/images/Nosotros/ICONOS-WEB-ASPROS_HISTORIA.svg')} alt="Historia" style="max-width:220px;" class="img-fluid" />
+        </div>
+        <div class="col-lg-7">
+          <p class="fs-5 fw-bold text-green-dark mb-3">Desde hace más de 40 años, la razón de ser y la inspiración de ASPROS® ha sido el campo mexicano, los agricultores y el maíz.</p>
+          <p>ASPROS® es un firme creyente y apasionado de que México puede incrementar su producción de maíz para ser autosustentable, que puede mejorar la economía y el nivel de vida de los agricultores y sus familias, que cuenta con gente buena y trabajadora capaz de lograr todo aquello que se proponga.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Valores -->
+  <section class="section-cream section-padding" data-aos="fade-up">
+    <div class="container">
+      <div class="text-center mb-4">
+        <img src={getUrl('/images/Nosotros/ICONOS-WEB-ASPROS_VALORES.svg')} alt="Valores" style="height:60px;" class="mb-2" />
+        <h2 class="section-title">VALORES</h2>
+      </div>
+      <div class="row g-3 justify-content-center">
+        <div class="col-md-6 col-lg-3">
+          <div class="card border-0 shadow-sm h-100 text-center p-4">
+            <div class="d-flex align-items-center justify-content-center mx-auto mb-3 rounded-circle bg-green-dark text-white" style="width: 56px; height: 56px;">
+              <i class="fas fa-handshake fs-5"></i>
             </div>
+            <h3 class="h6 fw-bold mb-2">Confianza</h3>
+            <p class="small text-muted mb-0">Creamos relaciones de confianza para el logro de objetivos comunes a largo plazo.</p>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-3">
+          <div class="card border-0 shadow-sm h-100 text-center p-4">
+            <div class="d-flex align-items-center justify-content-center mx-auto mb-3 rounded-circle bg-green-dark text-white" style="width: 56px; height: 56px;">
+              <i class="fas fa-lightbulb fs-5"></i>
+            </div>
+            <h3 class="h6 fw-bold mb-2">Innovación</h3>
+            <p class="small text-muted mb-0">Respondemos con éxito comercial a las demandas del mercado, mejorando nuestros productos y la atención a nuestros clientes y distribuidores.</p>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-3">
+          <div class="card border-0 shadow-sm h-100 text-center p-4">
+            <div class="d-flex align-items-center justify-content-center mx-auto mb-3 rounded-circle bg-green-dark text-white" style="width: 56px; height: 56px;">
+              <i class="fas fa-heart fs-5"></i>
+            </div>
+            <h3 class="h6 fw-bold mb-2">Compromiso</h3>
+            <p class="small text-muted mb-0">Con el desarrollo de las familias y el campo mexicano, para impulsar la economía del país y mejorar la calidad de vida.</p>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-3">
+          <div class="card border-0 shadow-sm h-100 text-center p-4">
+            <div class="d-flex align-items-center justify-content-center mx-auto mb-3 rounded-circle bg-green-dark text-white" style="width: 56px; height: 56px;">
+              <i class="fas fa-shield-alt fs-5"></i>
+            </div>
+            <h3 class="h6 fw-bold mb-2">Integridad</h3>
+            <p class="small text-muted mb-0">Actuamos con rectitud y honradez, para el bien común de nuestros colaboradores y nuestro país.</p>
           </div>
         </div>
       </div>
-    </section>
-  ))}
+    </div>
+  </section>
+
+  <!-- Misión y Visión -->
+  <section class="section-padding" data-aos="fade-up">
+    <div class="container">
+      <div class="row g-5">
+        <div class="col-lg-6">
+          <div class="text-center mb-3">
+            <img src={getUrl('/images/Nosotros/ICONOS-WEB-ASPROS_MISION.svg')} alt="Misión" style="height:60px;" />
+          </div>
+          <h2 class="section-title">MISIÓN</h2>
+          <p class="text-muted">Contribuir al desarrollo agrícola de las zonas de producción de maíz mediante la disposición de tecnología genética en forma de híbridos de maíz de alta calidad y rendimiento.</p>
+        </div>
+        <div class="col-lg-6">
+          <div class="text-center mb-3">
+            <img src={getUrl('/images/Nosotros/ICONOS-WEB-ASPROS_VISION.svg')} alt="Visión" style="height:60px;" />
+          </div>
+          <h2 class="section-title">VISIÓN</h2>
+          <p class="text-muted">Consolidarnos en el mercado como una empresa mexicana líder en el ramo de la producción y comercialización de semillas de maíz y con ello elevar la productividad del campo nacional.</p>
+        </div>
+      </div>
+    </div>
+  </section>
 
   <!-- Capacidades -->
   <section class="section-dark section-padding" data-aos="fade-up">
@@ -66,19 +125,26 @@ import { getUrl } from '../utils/url'
     <div class="container">
       <h2 class="section-title">Cobertura Nacional</h2>
       <div class="row g-3 justify-content-center">
-        {historiaPage.cobertura.map(c => (
-          <div class="col-md-6 col-lg-4">
-            <div class="card border-0 shadow-sm h-100 p-3">
-              <div class="d-flex align-items-center gap-3">
-                <i class="fas fa-map-marker-alt fs-3" style="color: #1f422c;"></i>
-                <div>
+        {historiaPage.cobertura.map(c => {
+          const slug = c.zona.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '')
+          const img = slug === 'pacifico' ? '/images/zones/pacifico.webp'
+            : slug === 'norte' ? '/images/zones/norte.webp'
+            : slug === 'occidente' ? '/images/zones/occidente.webp'
+            : slug === 'bajio' ? '/images/zones/bajio.webp'
+            : slug === 'centro' ? '/images/zones/centro.webp'
+            : ''
+          return (
+            <div class="col-md-6 col-lg-4">
+              <div class="card border-0 shadow-sm h-100 overflow-hidden">
+                <div class="zone-card-image" style={`background-image: url('${getUrl(img)}'); height: 140px;`}></div>
+                <div class="p-3">
                   <h3 class="h6 fw-bold mb-1">{c.zona}</h3>
                   <p class="small text-muted mb-0">{c.estados}</p>
                 </div>
               </div>
             </div>
-          </div>
-        ))}
+          )
+        })}
       </div>
     </div>
   </section>

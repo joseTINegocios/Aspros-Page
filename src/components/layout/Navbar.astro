@@ -44,6 +44,27 @@ const currentPath = Astro.url.pathname
   .navbar-light .nav-link.active {
     color: #1f422c !important;
   }
+  @media (max-width: 991.98px) {
+    .navbar-collapse {
+      background: rgba(255, 255, 255, 0.95);
+      border-radius: 0 0 0.75rem 0.75rem;
+      padding: 0.5rem 1rem;
+    }
+    .navbar-dark .navbar-collapse .nav-link {
+      color: #1f422c;
+    }
+    .navbar-dark .navbar-collapse .nav-link:hover,
+    .navbar-dark .navbar-collapse .nav-link.active {
+      color: #C9D300;
+    }
+    .navbar-light .navbar-collapse .nav-link {
+      color: #1f422c;
+    }
+    .navbar-light .navbar-collapse .nav-link:hover,
+    .navbar-light .navbar-collapse .nav-link.active {
+      color: #C9D300 !important;
+    }
+  }
 </style>
 
 <script>

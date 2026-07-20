@@ -35,7 +35,7 @@ export const siteConfig = {
       colorTexto: '#ffffff',
       colorHighlight: '#FFEC00',
       titulo: 'México sembrando grandeza',
-      bullets: ['40+ años de experiencia junto al productor mexicano', '13 híbridos de maíz de alta calidad', '6 regiones con genética adaptada a cada clima'],
+      bullets: ['40+ años de experiencia junto al productor mexicano', '13 híbridos de maíz de alta calidad', '5 regiones con genética adaptada a cada clima'],
       link: '/hibridos',
       linkText: 'Encuentra tu híbrido ideal',
     },
